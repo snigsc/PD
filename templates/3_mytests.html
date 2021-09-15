@@ -1,0 +1,24 @@
+{% extends "0_base.html" %} {% block title %}My Tests{% endblock %} {% block content%}
+<br/><br/><br/>
+
+<h5>Name: {{user.patient_name}} <br/> Age: {{user.patient_age}}</h5>
+
+<br/><br/>
+
+{% if n==0 %}
+    <p align="center"><strong>No tests to display.</strong></p>
+{% endif %} 
+
+  {% for test in user.tests %}
+  
+    <p style="text-decoration: none;"><em>{{ test.date }}</em> </p>
+    <p style="text-decoration: none;">Test Name: <strong>{{ test.type }}</strong></p>
+    <p style="text-decoration: none;">Result: <strong>{{ test.result }}</strong></p>
+    <hr>
+
+  {% endfor %}
+
+
+<br/><br/><br/><br/>
+{% endblock %}
+

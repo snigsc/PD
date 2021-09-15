@@ -1,0 +1,9 @@
+Flask==1.1.2
+Flask-SQLAlchemy
+Flask-Login
+gunicorn==20.1.0
+scikit-learn 
+matplotlib
+joblib
+pandas 
+numpy
