@@ -4,14 +4,12 @@ import pickle
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
-# from models import User
-# from models import Test
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-import speech_recognition as sr
-import librosa
+# import speech_recognition as sr
+# import librosa
 import io
-import soundfile as sf
+# import soundfile as sf
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 onehot_encoder = OneHotEncoder()
