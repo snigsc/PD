@@ -1,0 +1,41 @@
+{% extends "0_base.html" %} {% block title %}Index{% endblock %} {% block content%}
+
+<h3><b><br> Modified England Schwab Test </b></h3>
+
+The Schwab and England ADL (Activities of Daily Living) scale is a method of assessing the capabilities of people suffering from impaired mobility. 
+Originally presented at a Parkinson's disease conference, the scale assesses the difficulties patients have completing daily activities or chores.
+
+<br><br>Fill in your score based on the following metrics:
+
+<br><b>100% : Completely independent.</b> Able to do all chores without slowness, difficulty or impairment.
+<br><b>90%: Completely independent.</b> Able to do all chores, but with some degree of slowness, difficulty and/or impairment. One might take two times longer than normal to complete chores.
+<br><b>80% : Usually completely independent.</b> Takes two times longer than normal to complete chores.
+<br><b>70% : Mostly independent.</b> Faces more difficulty with some chores. One spends a large part of the day with chores and might take three to four times longer than normal.
+<br><b>60% : Somewhat independent.</b> Can do most chores, but exceedingly slowly and with much effort. Errors are possible during the chores.
+<br><b>50% : Mostly dependent.</b> Needs help with half of every chore. Everything is difficult to one.
+<br><b>40% : Very dependent.</b> Can assist with chores, and can complete some alone.
+<br><b>30% : Very dependent.</b> With help, can start chores. One can also complete few chores with effort and help.
+<br><b>20% : Very dependent.</b> Can slightly help with chores, but cannot complete any alone.
+<br><b>10% : Fully dependent.</b> Is helpless and somewhat comatose.
+<br><b>0% : Fully dependent.</b> Is bedridden and helpless. One is almost completely comatose.
+
+<br/><br/><br/>
+
+<!-- <div align="center"> -->
+
+    <form action="{{ url_for('predict_pq4') }}" method="POST">
+
+        <label for="MODSEADL">In conclusion, how would you summarise your average difficulty level in doing daily chores? Type your answer as a multiple of 5 based on the percentage scale shown above.</label><br>
+        
+        <input type="number" id="MSE" name="MSE" min="0" max="100" step="5"></input>&nbsp;&nbsp;&nbsp;
+
+        <br><br><br><button type="submit" class="btn" style="background-color: #ffcccc">Submit</button>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <br/><br/><br/><br/>
+
+    </form>
+    
+    
+{% endblock %}
