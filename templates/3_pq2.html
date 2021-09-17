@@ -1,0 +1,174 @@
+{% extends "0_base.html" %} {% block title %}Index{% endblock %} {% block content%}
+
+<h3><b><br> MDS UPDRS Part I Patient Questionnaire </b></h3>
+This questionnaire will ask you about your experiences of daily living. Please read each one carefully and read all answers before selecting the one that best applies to you. We are interested in your average or usual function over the past week including today. Some patients can do things better at one time of the day than at others. However, only one answer is allowed for each question, so please mark the answer that best describes what you can do most of the time. 
+<br><br>Rate the following activities on a scale of 0 to 4
+<br>0 : normal; no trouble
+<br>1 : little trouble
+<br>2 : some trouble
+<br>3 : lot of trouble
+<br>4 : severe
+
+<br/><br/>
+<!-- <div align="center"> -->
+  <form action="{{ url_for('predict_pq2') }}" method="POST">
+
+    <label for="NP1SLPN">1. Over the past week, have you had trouble going to sleep at night or staying asleep through the night? Consider how rested you felt after waking up in the morning.</label><br>
+    <input type="radio" id="0" name="NP1SLPN" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP1SLPN" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP1SLPN" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP1SLPN" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP1SLPN" value="4">  4</input>
+
+    <br><br><label for="NP1SLPD">2. Over the past week, have you had trouble staying awake during the daytime?</label><br>
+    <input type="radio" id="0" name="NP1SLPD" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP1SLPD" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP1SLPD" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP1SLPD" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP1SLPD" value="4">  4</input>
+
+    <br><br><label for="NP1PAIN">3. Over the past week, have you had uncomfortable feelings in your body like pain, aches, tingling, or cramps?</label><br/>
+    <input type="radio" id="0" name="NP1PAIN" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP1PAIN" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP1PAIN" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP1PAIN" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP1PAIN" value="4">  4</input>
+
+    <br><br><label for="NP1URIN">4. Over the past week, have you had trouble with urine control? For example, an urgent need to urinate, a need to urinate too often, or urine accidents?</label><br/>
+    <input type="radio" id="0" name="NP1URIN" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP1URIN" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP1URIN" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP1URIN" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP1URIN" value="4">  4</input>
+
+    <br><br><label for="NP1CNST">5. Over the past week have you had constipation troubles that cause you difficulty moving your bowels?</label><br/>
+    <input type="radio" id="0" name="NP1CNST" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP1CNST" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP1CNST" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP1CNST" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP1CNST" value="4">  4</input>
+
+    <br><br><label for="NP1LTHD">6. Over the past week, have you felt faint, dizzy, or foggy when you stand up after sitting or lying down?</label><br/>
+    <input type="radio" id="0" name="NP1LTHD" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP1LTHD" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP1LTHD" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP1LTHD" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP1LTHD" value="4">  4</input>
+
+    <br><br><label for="NP1FATG">7. Over the past week, have you usually felt fatigued? This feeling is not part of being sleepy or sad.</label><br/>
+    <input type="radio" id="0" name="NP1FATG" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP1FATG" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP1FATG" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP1FATG" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP1FATG" value="4">  4</input>
+
+    <h3><b><br> MDS UPDRS Part II Questionnaire</b></h3>
+    This questionnaire will ask you about your experiences of daily living. Please read each one carefully and read all answers before selecting the one that best applies to you. We are interested in your average or usual function over the past week including today. Some patients can do things better at one time of the day than at others. However, only one answer is allowed for each question, so please mark the answer that best describes what you can do most of the time. 
+    <br><br>Rate the following activities on a scale of 0 to 4
+    <br>0 : normal; no trouble
+    <br>1 : little trouble
+    <br>2 : some trouble
+    <br>3 : lot of trouble
+    <br>4 : severe
+
+    <br/><br/>
+
+    <label for="NP2SPCH">1. Over the past week, have you had problems with your speech?</label><br>
+    <input type="radio" id="0" name="NP2SPCH" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2SPCH" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2SPCH" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2SPCH" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2SPCH" value="4">  4</input>
+
+    <br><br><label for="NP2SALV">2. Over the past week, have you usually had too much saliva during when you are awake or when you sleep?</label><br>
+    <input type="radio" id="0" name="NP2SALV" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2SALV" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2SALV" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2SALV" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2SALV" value="4">  4</input>
+
+    <br><br><label for="NP2SWAL">3. Over the past week, have you usually had problems swallowing pills or eating meals? Do you need your pills cut or crushed or your meals to be made soft, chopped, or blended to avoid choking?</label><br/>
+    <input type="radio" id="0" name="NP2SWAL" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2SWAL" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2SWAL" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2SWAL" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2SWAL" value="4">  4</input>
+
+    <br><br><label for="NP2EAT">4. Over the past week, have you usually had troubles handling your food and using eating utensils? For example, do you have trouble handling finger foods or using forks, knives, spoons, chopsticks?</label><br/>
+    <input type="radio" id="0" name="NP2EAT" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2EAT" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2EAT" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2EAT" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2EAT" value="4">  4</input>
+
+    <br><br><label for="NP2DRES">5. Over the past week, have you usually had problems dressing? For example, are you slow or do you need help with buttoning, using zippers, putting on or taking off your clothes or jewelry?</label><br/>
+    <input type="radio" id="0" name="NP2DRES" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2DRES" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2DRES" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2DRES" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2DRES" value="4">  4</input>
+
+    <br><br><label for="NP2HYGN">6. Over the past week, have you usually been slow or do you need help with washing, bathing, shaving, brushing teeth, combing your hair, or with other personal hygiene?</label><br/>
+    <input type="radio" id="0" name="NP2HYGN" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2HYGN" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2HYGN" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2HYGN" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2HYGN" value="4">  4</input>
+
+    <br><br><label for="NP2HWRT">7. Over the past week, have people usually had trouble reading your handwriting?</label><br/>
+    <input type="radio" id="0" name="NP2HWRT" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2HWRT" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2HWRT" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2HWRT" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2HWRT" value="4">  4</input>
+  
+    <br><br><label for="NP2HOBB">8. Over the past week, have you usually had trouble doing your hobbies or other things that you like to do?</label><br/>
+    <input type="radio" id="0" name="NP2HOBB" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2HOBB" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2HOBB" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2HOBB" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2HOBB" value="4">  4</input>
+
+    <br><br><label for="NP2TURN">9. Over the past week, do you usually have trouble turning over in bed?</label><br/>
+    <input type="radio" id="0" name="NP2TURN" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2TURN" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2TURN" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2TURN" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2TURN" value="4">  4</input>
+
+    <br><br><label for="NP2TRMR">10. Over the past week, have you usually had shaking or tremor?</label><br/>
+    <input type="radio" id="0" name="NP2TRMR" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2TRMR" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2TRMR" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2TRMR" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2TRMR" value="4">  4</input>
+
+    <br><br><label for="NP2RISE">11. Over the past week, have you usually had trouble getting out of bed, a car seat, or a deep chair?</label><br/>
+    <input type="radio" id="0" name="NP2RISE" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2RISE" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2RISE" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2RISE" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2RISE" value="4">  4</input>
+
+    <br><br><label for="NP2WALK">12. Over the past week, have you usually had problems with balance and walking?</label><br/>
+    <input type="radio" id="0" name="NP2WALK" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2WALK" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2WALK" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2WALK" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2WALK" value="4">  4</input>
+
+    <br><br><label for="NP2FREZ">13. Over the past week, on your usual day when walking, do you suddenly stop or freeze as if your feet are stuck to the floor?</label><br/>
+    <input type="radio" id="0" name="NP2FREZ" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NP2FREZ" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="NP2FREZ" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="NP2FREZ" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="4" name="NP2FREZ" value="4">  4</input>
+    
+
+    <br><br><br><button type="submit" class="btn" style="background-color: #ffcccc">Submit</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br/><br/><br/><br/>
+  </form>
+
+
+{% endblock %}
