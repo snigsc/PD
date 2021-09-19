@@ -156,7 +156,7 @@ for root, dirs, files in os.walk(directory):
             if data not in pickle_files.keys():
                 pickle_files[data] = []    
             # pickle_files[data].append(os.path.join(root,filename))
-            pickle_files[data].append(root+"\\"+filename)
+            pickle_files[data].append(root+"/"+filename)
 
 
 @app.route('/')
