@@ -12,4 +12,4 @@ xgboost
 librosa
 soundfile
 SpeechRecognition
-libsndfile1-dev
+# libsndfile1-dev
