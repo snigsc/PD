@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-import speech_recognition as sr
+# import speech_recognition as sr
 import librosa
 import io
 import soundfile as sf
