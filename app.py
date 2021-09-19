@@ -9,12 +9,8 @@ import os
 # import speech_recognition as sr
 # import librosa
 import io
-import soundfile as sf
+# import soundfile as sf
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
-onehot_encoder = OneHotEncoder()
-from sklearn.preprocessing import OrdinalEncoder
-ordinal_encoder = OrdinalEncoder()
 from datetime import datetime
 
 ###########################################################################################
