@@ -368,82 +368,82 @@ def render_pq4():
 
 voice_model = pickle.load(open('voice_model.pkl','rb'))
 
-# @app.route('/voice',methods=['POST','GET'])
-# @login_required
-# def render_voice():
-#     return render_template("3_voice.html", user=current_user)
+@app.route('/voice',methods=['POST','GET'])
+@login_required
+def render_voice():
+    return render_template("3_voice.html", user=current_user)
 
 
-# @app.route("/voice-result", methods=["POST","GET"])
-# @login_required
-# def voice_result():
-#     voice_prediction = session['voice_prediction']
-#     idx = voice_prediction[0]
-#     output_prob = voice_prediction[1]
+@app.route("/voice-result", methods=["POST","GET"])
+@login_required
+def voice_result():
+    voice_prediction = session['voice_prediction']
+    idx = voice_prediction[0]
+    output_prob = voice_prediction[1]
 
-#     if idx==0:
-#         return render_template("4_result.html", prediction_text="you are at low risk of being affected by Parkinson's Disease.", user=current_user)
-#     elif idx==1:
-#         return render_template("4_result.html", prediction_text="you are at {}% risk of being affected with Parkinson's Disease.".format(output_prob), user=current_user)
+    if idx==0:
+        return render_template("4_result.html", prediction_text="you are at low risk of being affected by Parkinson's Disease.", user=current_user)
+    elif idx==1:
+        return render_template("4_result.html", prediction_text="you are at {}% risk of being affected with Parkinson's Disease.".format(output_prob), user=current_user)
 
-#     return redirect(url_for('voice_result'))
+    return redirect(url_for('voice_result'))
 
 
-# @app.route("/predict-voice", methods=["POST","GET"])
-# @login_required
-# def predict_voice():
+@app.route("/predict-voice", methods=["POST","GET"])
+@login_required
+def predict_voice():
 
-#     if request.method=='POST': 
+    if request.method=='POST': 
 
-#         audio_bytes = request.files['audio_data'].read()
-#         y, sr = sf.read(io.BytesIO(audio_bytes))
+        audio_bytes = request.files['audio_data'].read()
+        y, sr = sf.read(io.BytesIO(audio_bytes))
 
-#         # EXTRACT VOICE FEATURES
-#         duration = librosa.get_duration(y=y,sr=sr)
-#         rmse = librosa.feature.rms(y=y)
-#         chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
-#         spec_cent = librosa.feature.spectral_centroid(y=y, sr=sr)
-#         spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
-#         rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
-#         zcr = librosa.feature.zero_crossing_rate(y)
-#         mfcc = librosa.feature.mfcc(y=y, sr=sr)
-#         to_append = f'{duration} {np.mean(chroma_stft)} {np.mean(rmse)} {np.mean(spec_cent)} {np.mean(spec_bw)} {np.mean(rolloff)} {np.mean(zcr)}' 
-#         for e in mfcc:
-#             to_append += f' {np.mean(e)}'
+        # EXTRACT VOICE FEATURES
+        duration = librosa.get_duration(y=y,sr=sr)
+        rmse = librosa.feature.rms(y=y)
+        chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
+        spec_cent = librosa.feature.spectral_centroid(y=y, sr=sr)
+        spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
+        rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
+        zcr = librosa.feature.zero_crossing_rate(y)
+        mfcc = librosa.feature.mfcc(y=y, sr=sr)
+        to_append = f'{duration} {np.mean(chroma_stft)} {np.mean(rmse)} {np.mean(spec_cent)} {np.mean(spec_bw)} {np.mean(rolloff)} {np.mean(zcr)}' 
+        for e in mfcc:
+            to_append += f' {np.mean(e)}'
         
-#         # VOICE FEATURES LIST
-#         voice_data = np.array(to_append.split(),dtype='float').reshape(1, -1)
+        # VOICE FEATURES LIST
+        voice_data = np.array(to_append.split(),dtype='float').reshape(1, -1)
         
-#         # PREDICT VOICE
-#         try:
-#             prob = voice_model.predict_proba(voice_data)
-#             output_prob = round(max(prob[0])*100,2)
-#             idx = prob[0].tolist().index(max(prob[0]))
-#             pred = voice_model.predict(voice_data)[0]
+        # PREDICT VOICE
+        try:
+            prob = voice_model.predict_proba(voice_data)
+            output_prob = round(max(prob[0])*100,2)
+            idx = prob[0].tolist().index(max(prob[0]))
+            pred = voice_model.predict(voice_data)[0]
             
-#             hc = round(prob[0][0],4)*100
-#             pd = round(prob[0][1],4)*100
+            hc = round(prob[0][0],4)*100
+            pd = round(prob[0][1],4)*100
 
-#             session['voice_prediction'] = [idx,output_prob]
+            session['voice_prediction'] = [idx,output_prob]
 
-#             date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-#             if idx==0:
-#                 new_test = Test(type="Voice", result=0, display="Healthy", hc1=hc, pd1=pd, date=date, user_id = current_user.id)
-#                 db.session.add(new_test)
-#                 db.session.commit()
+            if idx==0:
+                new_test = Test(type="Voice", result=0, display="Healthy", hc1=hc, pd1=pd, date=date, user_id = current_user.id)
+                db.session.add(new_test)
+                db.session.commit()
                 
-#             elif idx==1:
-#                 new_test = Test(type="Voice", result=1, display=str(output_prob)+"% risk", hc1=hc, pd1=pd, date=date, user_id = current_user.id)
-#                 db.session.add(new_test)
-#                 db.session.commit()
+            elif idx==1:
+                new_test = Test(type="Voice", result=1, display=str(output_prob)+"% risk", hc1=hc, pd1=pd, date=date, user_id = current_user.id)
+                db.session.add(new_test)
+                db.session.commit()
 
-#             return redirect(url_for('voice_result'))
+            return redirect(url_for('voice_result'))
 
-#         except:
-#             print('Exception')
+        except:
+            print('Exception')
 
-#     return redirect(url_for('render_voice'))
+    return redirect(url_for('render_voice'))
 
 #################################################################################################
 

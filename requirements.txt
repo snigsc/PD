@@ -7,3 +7,8 @@ matplotlib
 joblib
 pandas 
 numpy
+lightgbm
+xgboost
+librosa
+soundfile
+SpeechRecognition
