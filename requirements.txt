@@ -6,7 +6,7 @@ scikit-learn
 matplotlib
 joblib
 pandas 
-numpy
+numpy==1.20
 lightgbm
 xgboost
 librosa
