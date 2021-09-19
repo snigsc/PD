@@ -6,10 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-# import speech_recognition as sr
-# import librosa
+import speech_recognition as sr
+import librosa
 import io
-# import soundfile as sf
+import soundfile as sf
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 onehot_encoder = OneHotEncoder()
@@ -41,9 +41,11 @@ class User(db.Model, UserMixin):
 class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(150))
-    result = db.Column(db.String(250))
-    date = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date = db.Column(db.String(100))
+    result = db.Column(db.String(250))
+    result = db.Column(db.Float)
+    display = db.Column(db.String(1000))
 
     hc1 = db.Column(db.Float)
     pd1 = db.Column(db.Float)
@@ -181,40 +183,37 @@ def my_tests():
 
 
 # FOR MULTIPLE GROUPS
-# def final_predict(hc, pd, pro):
-#     prob_lst = [hc, pd, pro]
-    
-#     output_prob = max(prob_lst)
-#     prediction = prob_lst.index(output_prob)
-#     output_prob = round(output_prob,4)
-    
-#     print(prob_lst, output_prob, prediction)
+def predict_all(hc, pd, pro):
+    prob_lst = [sum(hc)/len(hc), sum(pd)/len(pd), sum(pro)/len(pro)]
 
-#     return prediction, output_prob
+    output_prob = max(prob_lst)
+    prediction = prob_lst.index(output_prob)
+    output_prob = round(output_prob,4)
+    
+    return prediction, output_prob
 
 
 # FOR MULTIPLE GROUPS
-# def predict_pq_mt(X,models):
-#     HC_prob = []
-#     PD_prob = []
-#     Prodroma_prob = []
-#     for model_name in models:
-#         # print(model_name)
-#         model = pickle.load(open(model_name, 'rb'))
-#         pred = model.predict(X)
+def predict_single(X,models):
+    HC_prob = []
+    PD_prob = []
+    Prodroma_prob = []
+    for model_name in models:
         
-#         pred_prob = model.predict_proba(X)
-#         HC_prob.append(pred_prob[0][0])
-#         PD_prob.append(pred_prob[0][1])
-#         Prodroma_prob.append(pred_prob[0][2])
-#         # print(pred_prob, pred)
+        model = pickle.load(open(model_name, 'rb'))
+        pred = model.predict(X)
+        
+        pred_prob = model.predict_proba(X)
+        HC_prob.append(pred_prob[0][0])
+        PD_prob.append(pred_prob[0][1])
+        Prodroma_prob.append(pred_prob[0][2])
 
-#     HC_result = sum(HC_prob)/len(HC_prob)
-#     PD_result = sum(PD_prob)/len(PD_prob)
-#     Prodroma_result = sum(Prodroma_prob)/len(Prodroma_prob)
+    HC_result = sum(HC_prob)/len(HC_prob)
+    PD_result = sum(PD_prob)/len(PD_prob)
+    Prodroma_result = sum(Prodroma_prob)/len(Prodroma_prob)
 
-#     prob_lst = [HC_result, PD_result, Prodroma_result]
-#     return prob_lst
+    prob_lst = [HC_result, PD_result, Prodroma_result]
+    return prob_lst
 
     
 # DO NOT MODIFY    
@@ -223,7 +222,6 @@ def predict_pq_mt_forpq3only(X,models):
     PD_prob = []
     Prodroma_prob = []
     for model_name in models:
-        # print(model_name)
         model = pickle.load(open(model_name, 'rb'))
         pred = model.predict(X)
         
@@ -231,7 +229,6 @@ def predict_pq_mt_forpq3only(X,models):
         HC_prob.append(pred_prob[0][0])
         PD_prob.append(pred_prob[0][1])
         Prodroma_prob.append(pred_prob[0][2])
-        # print(pred_prob, pred)
 
     HC_result = sum(HC_prob)/len(HC_prob)
     PD_result = sum(PD_prob)/len(PD_prob)
@@ -242,123 +239,67 @@ def predict_pq_mt_forpq3only(X,models):
     output_prob = max(prob_lst)
     prediction = prob_lst.index(output_prob)
     output_prob = round(output_prob,4)
-    print(prob_lst, output_prob, prediction)
     return prediction, output_prob
 
 
-# @app.route('/predict-pq1',methods=['POST','GET'])
-# @login_required
-# def predict_pq1():
-#     if request.method=='POST':
+#  ---------------------------------------------------------------------------------------
+@app.route('/predict-pq2',methods=['POST','GET'])
+@login_required
+def predict_pq2():
+    if request.method=='POST':
 
-#         models = pickle_files['PQ_G1']
+        models = pickle_files['PQ_G2']
         
-#         if len(request.form)!=21: 
-#             flash('Please answer all questions', category='error')
-#             return redirect(url_for('render_pq1'))
+        if len(request.form)!=20: 
+            flash('Please answer all questions', category='error')
+            return redirect(url_for('render_pq2'))
             
-#         X = np.array([[int(x) for x in request.form.values()]])
-#         # X = np.array(features)
+        X = np.array([[int(x) for x in request.form.values()]])
+        # X = np.array(features)
 
-#         prob_lst = predict_pq_mt(X, models)
-#         date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-#         new_test = Test(type="Questionnaire", hc1=prob_lst[0], pd1=prob_lst[1], pro1=prob_lst[2], date=date, user_id = current_user.id)
-#         db.session.add(new_test)
-#         db.session.commit()
+        prob_lst = predict_single(X, models)
+
+        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        new_test = Test(type="Questionnaire", hc2=prob_lst[0], pd2=prob_lst[1], pro2=prob_lst[2], date=date, user_id = current_user.id)
+        db.session.add(new_test)
+        db.session.commit()
     
-#     return redirect(url_for('render_pq3'))
+    return redirect(url_for('render_pq3'))
 
 
-# @app.route('/pq1',methods=['POST','GET'])
-# @login_required
-# def render_pq1():
-#     return render_template("3_pq1.html",user=current_user)
+@app.route('/pq2',methods=['POST','GET'])
+@login_required
+def render_pq2():
+    return render_template("3_pq2.html",user=current_user)
 
 
-# @app.route('/predict-pq2',methods=['POST','GET'])
-# @login_required
-# def predict_pq2():
-#     if request.method=='POST':
 
-#         models = pickle_files['PQ_G2']
-        
-#         if len(request.form)!=21: 
-#             flash('Please answer all questions', category='error')
-#             return redirect(url_for('render_pq2'))
-            
-#         X = np.array([[int(x) for x in request.form.values()]])
-
-#         prob_lst = predict_pq_mt(X, models)
-
-#         date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        
-#         t = session.query(Test).order_by(Test.id.desc()).first()
-#         t.hc2=prob_lst[0]
-#         t.pd2=prob_lst[1]
-#         t.pro2=prob_lst[2]
-#         t.date=date
-#         db.session.commit()
-
-#         HC = [t.hc1, t.hc2]
-#         PD = [t.pd1, t.pd2]
-#         PRODROMA = [t.pro1, t.pro2]
-
-#         prediction, output_prob = final_predict(HC, PD, PRODROMA)
-#         print(prediction, output_prob)
-
-#         t.result = prediction
-#         db.commit()
-    
-#     return redirect(url_for('render_pq2'))
-
-
-# @app.route('/pq2',methods=['POST','GET'])
-# @login_required
-# def render_pq2():
-#     return render_template("3_pq2.html",user=current_user)
-
-
-# DO NOT MODIFY
 @app.route('/predict-pq3',methods=['POST','GET'])
 @login_required
 def predict_pq3():
     if request.method=='POST':
 
         models = pickle_files['PQ_G3']
-        
+
         if len(request.form)!=21: 
             flash('Please answer all questions', category='error')
             return redirect(url_for('render_pq3'))
             
         X = np.array([[int(x) for x in request.form.values()]])
-        # X = np.array(features)
 
-        prediction, output_prob = predict_pq_mt_forpq3only(X, models)
+        prob_lst = predict_single(X, models)
 
         date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-
-        if prediction==0:
-            # if output_prob>75:
-            #     return render_template("4_result.html", prediction_text="you are at very low risk of being affected by Parkinson's Disease.", user=current_user)
-            # else:
-                # return render_template("4_result.html", prediction_text="you are at low risk ({}%) of being affected by Parkinson's Disease.".format(100-output_prob), user=current_user)
-                new_test = Test(type="Questionnaire 3", result="Healthy", date=date, user_id = current_user.id)
-                db.session.add(new_test)
-                db.session.commit()
-                return render_template("4_result.html", prediction_text="you are at low risk of being affected by Parkinson's Disease.", user=current_user)
-        elif prediction==1:
-            new_test = Test(type="Questionnaire 3", result=str(output_prob*100)+"% risk", date=date, user_id = current_user.id)
-            db.session.add(new_test)
-            db.session.commit()
-            return render_template("4_result.html", prediction_text="you are at {}% risk of being affected with Parkinson's Disease.".format(output_prob*100), user=current_user)    
-        elif prediction==2:
-            new_test = Test(type="Questionnaire 3", result=str(output_prob*100)+"% risk", date=date, user_id = current_user.id)
-            db.session.add(new_test)
-            db.session.commit()
-            return render_template("4_result.html", prediction_text="your are at {}% risk of being in the early stages of Parkinson's Disease.".format(output_prob*100), user=current_user)
-
+        
+        t = Test.query.order_by(Test.id.desc()).first()
+        
+        t.hc3=prob_lst[0]
+        t.pd3=prob_lst[1]
+        t.pro3=prob_lst[2]
+        t.date=date
+        db.session.commit()
     
-    return redirect(url_for('render_pq3'))
+    return redirect(url_for('render_pq4'))
 
 
 @app.route('/pq3',methods=['POST','GET'])
@@ -366,6 +307,70 @@ def predict_pq3():
 def render_pq3():
     return render_template("3_pq3.html",user=current_user)
 
+
+
+@app.route('/predict-pq4',methods=['POST','GET'])
+@login_required
+def predict_pq4():
+    if request.method=='POST':
+
+        models = pickle_files['PQ_G4']
+
+        if len(request.form)!=1: 
+            flash('Please answer all questions', category='error')
+            return redirect(url_for('render_pq4'))
+            
+        X = np.array([[int(x) for x in request.form.values()]])
+
+        prob_lst = predict_single(X, models)
+
+        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        
+        t = Test.query.filter(Test.user_id==current_user.id).order_by(Test.id.desc()).first()
+        
+        t.hc4=prob_lst[0]
+        t.pd4=prob_lst[1]
+        t.pro4=prob_lst[2]
+        t.date=date
+        db.session.commit()
+
+        HC = [t.hc2, t.hc3, t.hc4]
+        PD = [t.pd2, t.pd3, t.pd4]
+        PRODROMA = [t.pro2, t.pro3, t.pro4]
+
+        prediction, output_prob = predict_all(HC, PD, PRODROMA)
+
+        t.result = prediction
+        t.prob = output_prob
+        db.session.commit()
+
+        # ADD RESULTS PAGE HERE
+        if prediction==0:
+            # if output_prob>75:
+            #     return render_template("4_result.html", prediction_text="you are at very low risk of being affected by Parkinson's Disease.", user=current_user)
+            # else:
+                # return render_template("4_result.html", prediction_text="you are at low risk ({}%) of being affected by Parkinson's Disease.".format(100-output_prob), user=current_user)
+                t.display = "Healthy"
+                db.session.commit()
+                return render_template("4_result.html", prediction_text="you are at low risk of being affected by Parkinson's Disease.", user=current_user)
+        elif prediction==1:
+            t.display = str(output_prob*100)+"% risk of Parkinson's Disease"
+            db.session.commit()
+            return render_template("4_result.html", prediction_text="you are at {}% risk of being affected with Parkinson's Disease.".format(output_prob*100), user=current_user)    
+        elif prediction==2:
+            t.display = str(output_prob*100)+"% risk of being in the early stages of Parkinson's Disease"
+            db.session.commit()
+            return render_template("4_result.html", prediction_text="your are at {}% risk of being in the early stages of Parkinson's Disease.".format(output_prob*100), user=current_user)
+    
+    return redirect(url_for('render_pq4'))
+
+
+@app.route('/pq4',methods=['POST','GET'])
+@login_required
+def render_pq4():
+    return render_template("3_pq4.html",user=current_user)
+
+#  ---------------------------------------------------------------------------------------
 
 ####################################################################################################
 
@@ -384,12 +389,12 @@ def voice_result():
     idx = voice_prediction[0]
     output_prob = voice_prediction[1]
 
-    print(idx, output_prob)
-
     if idx==0:
         return render_template("4_result.html", prediction_text="you are at low risk of being affected by Parkinson's Disease.", user=current_user)
     elif idx==1:
         return render_template("4_result.html", prediction_text="you are at {}% risk of being affected with Parkinson's Disease.".format(output_prob), user=current_user)
+
+    return redirect(url_for('voice_result'))
 
 
 @app.route("/predict-voice", methods=["POST","GET"])
@@ -423,22 +428,28 @@ def predict_voice():
             output_prob = round(max(prob[0])*100,2)
             idx = prob[0].tolist().index(max(prob[0]))
             pred = voice_model.predict(voice_data)[0]
+            
+            hc = round(prob[0][0],4)*100
+            pd = round(prob[0][1],4)*100
+
             session['voice_prediction'] = [idx,output_prob]
-        
+
             date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
             if idx==0:
-                new_test = Test(type="Voice", result="Healthy", date=date, user_id = current_user.id)
+                new_test = Test(type="Voice", result=0, display="Healthy", hc1=hc, pd1=pd, date=date, user_id = current_user.id)
                 db.session.add(new_test)
                 db.session.commit()
+                
             elif idx==1:
-                new_test = Test(type="Voice", result=str(output_prob*100)+"% risk", date=date, user_id = current_user.id)
+                new_test = Test(type="Voice", result=1, display=str(output_prob)+"% risk", hc1=hc, pd1=pd, date=date, user_id = current_user.id)
                 db.session.add(new_test)
                 db.session.commit()
+
             return redirect(url_for('voice_result'))
 
         except:
-            print('Input does not match output.')
+            print('Exception')
 
     return redirect(url_for('render_voice'))
 
