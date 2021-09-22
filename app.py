@@ -7,9 +7,9 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import speech_recognition as sr
-import librosa
+# import librosa
 import io
-import soundfile as sf
+# import soundfile as sf
 import pandas as pd
 from datetime import datetime
 
