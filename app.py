@@ -7,14 +7,15 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import speech_recognition as sr
-# import librosa
+import librosa
 import io
-# import soundfile as sf
+import soundfile as sf
 import pandas as pd
 from datetime import datetime
 
 ###########################################################################################
 
+# Create SQL Database
 def create_database(app):
     if not os.path.exists('website/' + DB_NAME):
         db.create_all(app=app)
@@ -63,7 +64,6 @@ class Test(db.Model):
     pd5 = db.Column(db.Float)
     pro5 = db.Column(db.Float)
       
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hjsh782kjshkjdhjs'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -156,7 +156,28 @@ for root, dirs, files in os.walk(directory):
             if data not in pickle_files.keys():
                 pickle_files[data] = []    
             # pickle_files[data].append(os.path.join(root,filename))
-            pickle_files[data].append(root+"/"+filename)
+            pickle_files[data].append([root+"/"+filename])
+
+
+ranks = {}
+# ranks['PQ_G1']
+pickle_files['PQ_G1'].append({'ETC':3, 'LGBMC':2, 'XGBC':1, 'RFC':5, 'LR':4 })
+pickle_files['PQ_G2'].append({'ETC':4, 'LGBMC':2, 'XGBC':1, 'RFC':5, 'LR':3 })
+pickle_files['PQ_G3'].append({'ETC':3, 'LGBMC':1, 'XGBC':4, 'RFC':2, 'LR':5 })
+pickle_files['PQ_G4'].append({'ETC':4, 'LGBMC':3, 'XGBC':1, 'RFC':5, 'LR':2 })
+pickle_files['MT_G1'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
+pickle_files['MT_G2'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
+pickle_files['MT_G3'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
+pickle_files['MT_G4'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
+pickle_files['MT_G5'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
+# ranks['PQ_G3']
+# ranks['PQ_G4']
+
+for data,values in pickle_files.items():
+    for model in values[:-1]:
+        name = model[0][model[0].index('/')+1:model[0].index('_')]
+        weight = 6-(values[-1][name])
+        model.append(weight) 
 
 
 @app.route('/')
@@ -174,9 +195,7 @@ def my_tests():
         n=1
     return render_template('3_mytests.html', user=current_user, n=n)
 
-
 ####################################################################################################
-
 
 # FOR MULTIPLE GROUPS
 def predict_all(hc, pd, pro):
@@ -188,55 +207,54 @@ def predict_all(hc, pd, pro):
     
     return prediction, output_prob
 
-
 # FOR MULTIPLE GROUPS
 def predict_single(X,models):
     HC_prob = []
     PD_prob = []
     Prodroma_prob = []
-    for model_name in models:
+    for model_name in models[:-1]:
+
+        print(model_name)
         
-        model = pickle.load(open(model_name, 'rb'))
+        model = pickle.load(open(model_name[0], 'rb'))
         pred = model.predict(X)
         
         pred_prob = model.predict_proba(X)
-        HC_prob.append(pred_prob[0][0])
-        PD_prob.append(pred_prob[0][1])
-        Prodroma_prob.append(pred_prob[0][2])
+        HC_prob.append([pred_prob[0][0],model_name[1]])
+        PD_prob.append([pred_prob[0][1],model_name[1]])
+        Prodroma_prob.append([pred_prob[0][2],model_name[1]])
 
-    HC_result = sum(HC_prob)/len(HC_prob)
-    PD_result = sum(PD_prob)/len(PD_prob)
-    Prodroma_result = sum(Prodroma_prob)/len(Prodroma_prob)
+    l = np.array([i[0] for i in HC_prob])
+    l = l[(l<np.quantile(l,0.01))].tolist()
+    for i in HC_prob:
+        if i[0] in l:
+            i[1] = 0
+
+    l = np.array([i[0] for i in PD_prob])
+    l = l[(l<np.quantile(l,0.01))].tolist()
+    for i in PD_prob:
+        if i[0] in l:
+            i[1] = 0
+
+    l = np.array([i[0] for i in Prodroma_prob])
+    l = l[(l<np.quantile(l,0.01))].tolist()
+    for i in Prodroma_prob:
+        if i[0] in l:
+            i[1] = 0
+
+
+    print(HC_prob,PD_prob,Prodroma_prob)
+
+    HC_result = sum([HC_prob[x][0]*HC_prob[x][1] for x in range(3)])/sum([HC_prob[x][1] for x in range(3)])
+    PD_result = sum([PD_prob[x][0]*PD_prob[x][1] for x in range(3)])/sum([PD_prob[x][1] for x in range(3)])
+    Prodroma_result = sum([Prodroma_prob[x][0]*Prodroma_prob[x][1] for x in range(3)])/sum([Prodroma_prob[x][1] for x in range(3)])
 
     prob_lst = [HC_result, PD_result, Prodroma_result]
+    print(prob_lst)
     return prob_lst
     
-# DO NOT MODIFY    
-def predict_pq_mt_forpq3only(X,models):
-    HC_prob = []
-    PD_prob = []
-    Prodroma_prob = []
-    for model_name in models:
-        model = pickle.load(open(model_name, 'rb'))
-        pred = model.predict(X)
-        
-        pred_prob = model.predict_proba(X)
-        HC_prob.append(pred_prob[0][0])
-        PD_prob.append(pred_prob[0][1])
-        Prodroma_prob.append(pred_prob[0][2])
-
-    HC_result = sum(HC_prob)/len(HC_prob)
-    PD_result = sum(PD_prob)/len(PD_prob)
-    Prodroma_result = sum(Prodroma_prob)/len(Prodroma_prob)
-
-    prob_lst = [HC_result, PD_result, Prodroma_result]
-        
-    output_prob = max(prob_lst)
-    prediction = prob_lst.index(output_prob)
-    output_prob = round(output_prob,4)
-    return prediction, output_prob
-
 #  ---------------------------------------------------------------------------------------
+
 @app.route('/predict-pq2',methods=['POST','GET'])
 @login_required
 def predict_pq2():
@@ -249,7 +267,6 @@ def predict_pq2():
             return redirect(url_for('render_pq2'))
             
         X = np.array([[int(x) for x in request.form.values()]])
-        # X = np.array(features)
 
         prob_lst = predict_single(X, models)
 
@@ -362,11 +379,11 @@ def predict_pq4():
 def render_pq4():
     return render_template("3_pq4.html",user=current_user)
 
-#  ---------------------------------------------------------------------------------------
 
 ####################################################################################################
 
-voice_model = pickle.load(open('voice_model.pkl','rb'))
+
+voice_model = pickle.load(open('voice_dataset.pkl','rb'))
 
 @app.route('/voice',methods=['POST','GET'])
 @login_required
