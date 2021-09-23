@@ -7,13 +7,11 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import speech_recognition as sr
-import librosa
+# import librosa
 import io
-import soundfile as sf
+# import soundfile as sf
 import pandas as pd
 from datetime import datetime
-from sklearn.preprocessing import OrdinalEncoder
-ordinal = OrdinalEncoder()
 
 ###########################################################################################
 
@@ -257,36 +255,6 @@ def predict_single(X,models):
     
 #  ---------------------------------------------------------------------------------------
 
-@app.route('/predict-pq1',methods=['POST','GET'])
-@login_required
-def predict_pq1():
-    if request.method=='POST':
-
-        models = pickle_files['PQ_G1']
-        
-        # if len(request.form)!=69: 
-        #     flash('Please answer all questions', category='error')
-        #     return redirect(url_for('render_pq1'))
-            
-        X = np.array([[x for x in request.form.values()]])
-        X = ordinal.fit_transform(X)
-
-        prob_lst = predict_single(X, models)
-
-        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        new_test = Test(type="Questionnaire", hc1=prob_lst[0], pd1=prob_lst[1], pro1=prob_lst[2], date=date, user_id = current_user.id)
-        db.session.add(new_test)
-        db.session.commit()
-    
-    return redirect(url_for('render_pq2'))
-
-
-@app.route('/pq1',methods=['POST','GET'])
-@login_required
-def render_pq1():
-    return render_template("3_pq1.html",user=current_user)
-
-
 @app.route('/predict-pq2',methods=['POST','GET'])
 @login_required
 def predict_pq2():
@@ -301,14 +269,10 @@ def predict_pq2():
         X = np.array([[int(x) for x in request.form.values()]])
 
         prob_lst = predict_single(X, models)
-        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-        t = Test.query.order_by(Test.id.desc()).first()
-        
-        t.hc2=prob_lst[0]
-        t.pd2=prob_lst[1]
-        t.pro2=prob_lst[2]
-        t.date=date
+        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        new_test = Test(type="Questionnaire", hc2=prob_lst[0], pd2=prob_lst[1], pro2=prob_lst[2], date=date, user_id = current_user.id)
+        db.session.add(new_test)
         db.session.commit()
     
     return redirect(url_for('render_pq3'))
@@ -379,14 +343,10 @@ def predict_pq4():
         t.date=date
         db.session.commit()
 
-        # HC = [t.hc1, t.hc2, t.hc3, t.hc4]
-        # PD = [t.pd1, t.pd2, t.pd3, t.pd4]
-        # PRODROMA = [t.pro1, t.pro2, t.pro3, t.pro4]
-
         HC = [t.hc2, t.hc3, t.hc4]
         PD = [t.pd2, t.pd3, t.pd4]
         PRODROMA = [t.pro2, t.pro3, t.pro4]
-    
+
         prediction, output_prob = predict_all(HC, PD, PRODROMA)
 
         t.result = prediction
@@ -441,8 +401,6 @@ def voice_result():
     if idx==0:
         return render_template("4_result.html", prediction_text="you are at low risk of being affected by Parkinson's Disease.", user=current_user)
     elif idx==1:
-        # if output_prob<75:
-            # return render_template("4_result.html", prediction_text="you are at low risk of being affected by Parkinson's Disease.", user=current_user)
         return render_template("4_result.html", prediction_text="you are at {}% risk of being affected with Parkinson's Disease.".format(output_prob), user=current_user)
 
     return redirect(url_for('voice_result'))
