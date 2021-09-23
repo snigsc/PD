@@ -1,0 +1,400 @@
+{% extends "0_base.html" %} {% block title %}Index{% endblock %} {% block content%}
+
+<h3><b><br> REM (Rapid Eye Movement) Sleep Disorder </b></h3>
+Description
+<br><br>Rate the following activities as YES or N0.
+
+<br/><br/>
+<!-- <div align="center"> -->
+  <form action="{{ url_for('predict_pq1') }}" method="POST">
+
+    <label for="DRMVIVID">1. I sometimes have very vivid dreams.</label><br>
+    <input type="radio" id="0" name="DRMVIVID" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMVIVID" value="1"> YES</input>
+
+    <br><br><label for="DRMAGRAC">2. My dreams frequently have an aggressive or action-packed content.</label><br>
+    <input type="radio" id="0" name="DRMAGRAC" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMAGRAC" value="1">  YES</input>
+
+    <br><br><label for="DRMNOCTB">3. The dream contents mostly match my nocturnal behaviour.</label><br>
+    <input type="radio" id="0" name="DRMNOCTB" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMNOCTB" value="1">  YES</input>
+
+    <br><br><label for="SLPLMBMV">4. I know that my arms or legs move when I sleep.</label><br/>
+    <input type="radio" id="0" name="SLPLMBMV" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SLPLMBMV" value="1">  YES</input>
+
+    <br><br><label for="SLPINJUR">5. I (almost) hurt my bed partner or myself in my sleep.</label><br/>
+    <input type="radio" id="0" name="SLPINJUR" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SLPINJUR" value="1">  YES</input>
+
+    <h4><b><br>6. I have or had the following phenomena during my dreams: </b></h4>
+    <br><br><label for="DRMVERBL">6a. speaking, shouting, sweating, laughing loudly</label><br/>
+    <input type="radio" id="0" name="DRMVERBL" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMVERBL" value="1">  YES</input>
+
+    <br><br><label for="DRMFIGHT">6b. sudden limb movements, "fights"</label><br/>
+    <input type="radio" id="0" name="DRMFIGHT" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMFIGHT" value="1">  YES</input>
+
+    <br><br><label for="DRMUMV">6c. gesture, complex movements that are useless during sleep</label><br/>
+    <input type="radio" id="0" name="DRMUMV" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMUMV" value="1">  YES</input>
+
+    <br><br><label for="DRMOBJFL">6d. things that fell down around the bed</label><br/>
+    <input type="radio" id="0" name="DRMOBJFL" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMOBJFL" value="1">  YES</input>
+
+    <br><br><label for="MVAWAKEN">7. My movements awake me.</label><br/>
+    <input type="radio" id="0" name="MVAWAKEN" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="MVAWAKEN" value="1">  YES</input>
+
+    <br><br><label for="DRMREMEM">8. After awakening I mostly remember the content of my dreams well.</label><br/>
+    <input type="radio" id="0" name="DRMREMEM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMREMEM" value="1">  YES</input>
+
+    <br><br><label for="SLPDSTRB">9. My sleep is frequently disturbed.</label><br/>
+    <input type="radio" id="0" name="SLPDSTRB" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SLPDSTRB" value="1">  YES</input>
+
+    <h4><b><br>10. I have/had a disease of the nervous system: </b></h4>
+    <br><br><label for="STROKE">10a. Stroke </label><br/>
+    <input type="radio" id="0" name="STROKE" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="STROKE" value="1">  YES</input>
+
+    <br><br><label for="HETRA">10b. Head Trauma </label><br/>
+    <input type="radio" id="0" name="HETRA" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="HETRA" value="1">  YES</input>
+
+    <br><br><label for="PARKISM">10c. Parkinsonism </label><br/>
+    <input type="radio" id="0" name="PARKISM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="PARKISM" value="1">  YES</input>
+
+    <br><br><label for="RLS">10d. RLS </label><br/>
+    <input type="radio" id="0" name="RLS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="RLS" value="1">  YES</input>
+
+    <br><br><label for="NARCLPSY">10e. Narcolepsy </label><br/>
+    <input type="radio" id="0" name="NARCLPSY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NARCLPSY" value="1">  YES</input>
+
+    <br><br><label for="DEPRS">10f. Depression </label><br/>
+    <input type="radio" id="0" name="DEPRS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DEPRS" value="1">  YES</input>
+
+    <br><br><label for="EPILEPSY">10g. Epilepsy </label><br/>
+    <input type="radio" id="0" name="EPILEPSY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="EPILEPSY" value="1">  YES</input>
+    
+    <br><br><label for="BRNINFM">10h. Inflammatory disease of the brain </label><br/>
+    <input type="radio" id="0" name="BRNINFM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="BRNINFM" value="1">  YES</input>
+
+    <br><br><label for="CNSOTH">10i. Other </label><br/>
+    <input type="radio" id="0" name="CNSOTH" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="CNSOTH" value="1">  YES</input>
+
+
+    <h3><b><br> SCOPA AUT</b></h3>
+    Based on your experiences over the past month, answer the following: 
+    <br><br>Rate the following activities on a scale of 0 to 3
+    <br>0 : never
+    <br>1 : sometimes
+    <br>2 : regularly
+    <br>3 : often
+
+    <br/><br/>
+
+    <label for="SCAU1">1. Have you had difficulty swallowing or have you choked?</label><br>
+    <input type="radio" id="0" name="SCAU1" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU1" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU1" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU1" value="3">  3</input>
+
+    <br><br><label for="SCAU2">2. Has saliva dribbled out of your mouth?</label><br>
+    <input type="radio" id="0" name="SCAU2" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU2" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU2" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU2" value="3">  3</input>
+
+    <br><br><label for="SCAU3">3. Has food ever become stuck in your throath?</label><br/>
+    <input type="radio" id="0" name="SCAU3" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU3" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU3" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU3" value="3">  3</input>
+
+    <br><br><label for="SCAU4">4. Did you ever have the feeling during a meal that you were full very quickly?</label><br/>
+    <input type="radio" id="0" name="SCAU4" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU4" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU4" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU4" value="3">  3</input>
+
+    <br><br><label for="SCAU5">5. Have you had problems with constipation?</label><br/>
+    <input type="radio" id="0" name="SCAU5" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU5" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU5" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU5" value="3">  3</input>
+
+    <br><br><label for="SCAU6">6. Did you have to strain hard to pass stools?</label><br/>
+    <input type="radio" id="0" name="SCAU6" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU6" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU6" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU6" value="3">  3</input>
+
+    <br><br><label for="SCAU7">7. Have you had involuntary loss of stools?</label><br/>
+    <input type="radio" id="0" name="SCAU7" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU7" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU7" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU7" value="3">  3</input>
+
+    <br><br>Rate the following activities on a scale of 0 to 3
+    <br>0 : never
+    <br>1 : sometimes
+    <br>2 : regularly
+    <br>3 : often
+    <br>9 : use catheter
+  
+    <br><br><label for="SCAU8">8. Have you had difficulty retaining urine?</label><br/>
+    <input type="radio" id="0" name="SCAU8" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU8" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU8" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU8" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="9" name="SCAU8" value="9">  9</input>
+
+    <br><br><label for="SCAU9">9. Have you had involuntary loss of urine?</label><br/>
+    <input type="radio" id="0" name="SCAU9" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU9" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU9" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU9" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="9" name="SCAU9" value="9">  9</input>
+
+    <br><br><label for="SCAU10">10. Have you had the feeling that after passing urine your bladder was not completely empty?</label><br/>
+    <input type="radio" id="0" name="SCAU10" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU10" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU10" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU10" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="9" name="SCAU10" value="9">  9</input>
+
+    <br><br><label for="SCAU11">11. Has the stream of urine been weak?</label><br/>
+    <input type="radio" id="0" name="SCAU11" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU11" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU11" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU11" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="9" name="SCAU11" value="9">  9</input>
+
+    <br><br><label for="SCAU12">12. Have you had to pass urine again within 2 hours of the previous time?</label><br/>
+    <input type="radio" id="0" name="SCAU12" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU12" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU12" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU12" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="9" name="SCAU12" value="9">  9</input>
+
+    <br><br><label for="SCAU13">13. Have you had to pass urine at night?</label><br/>
+    <input type="radio" id="0" name="SCAU13" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU13" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU13" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU13" value="3">  3</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="9" name="SCAU13" value="9">  9</input>
+
+    <br><br>Rate the following activities on a scale of 0 to 3
+    <br>0 : never
+    <br>1 : sometimes
+    <br>2 : regularly
+    <br>3 : often
+
+    <br><br><label for="SCAU14">14. In the past month, when standing up have you had the feeling of either becoming lightheaded, or no longer being able to see properly, or no longer being able to think clearly?</label><br/>
+    <input type="radio" id="0" name="SCAU14" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU14" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU14" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU14" value="3">  3</input>
+
+    <br><br><label for="SCAU15">15. Did you become light-headed after standing for some time?</label><br/>
+    <input type="radio" id="0" name="SCAU15" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU15" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU15" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU15" value="3">  3</input>
+
+    <br><br><label for="SCAU16">16. Did you become light-headed after standing for some time?</label><br/>
+    <input type="radio" id="0" name="SCAU16" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU16" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU16" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU16" value="3">  3</input>
+
+    <br><br><label for="SCAU17">17. Have you ever perspired excessively during the day?</label><br/>
+    <input type="radio" id="0" name="SCAU17" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU17" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU17" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU17" value="3">  3</input>
+
+    <br><br><label for="SCAU18">18. Have you ever perspired excessively during the night?</label><br/>
+    <input type="radio" id="0" name="SCAU18" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU18" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU18" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU18" value="3">  3</input>
+
+    <br><br><label for="SCAU19">19. Have your eyes ever been over-sensitive to bright light?</label><br/>
+    <input type="radio" id="0" name="SCAU19" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU19" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU19" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU19" value="3">  3</input>
+    
+    <br><br><label for="SCAU20">20. How often have you had trouble tolerating cold?</label><br/>
+    <input type="radio" id="0" name="SCAU20" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU20" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU20" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU20" value="3">  3</input>
+
+    <br><br><label for="SCAU21">21. How often have you had trouble tolerating cold?</label><br/>
+    <input type="radio" id="0" name="SCAU21" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU21" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="SCAU21" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="SCAU21" value="3">  3</input>
+
+    <h4><b><br>22. Have you used medication for:  </b></h4>
+    <br><br><label for="SCAU26A">22a. constipation?</label><br/>
+    <input type="radio" id="0" name="SCAU26A" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU26A" value="1">  YES</input>
+
+    <br><br><label for="SCAU26B">22b. urinary problems?</label><br/>
+    <input type="radio" id="0" name="SCAU26B" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU26B" value="1">  YES</input>
+
+    <br><br><label for="SCAU26C">22c. blood pressure?</label><br/>
+    <input type="radio" id="0" name="SCAU26C" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU26C" value="1">  YES</input>
+
+    <br><br><label for="SCAU26D">22d. other symptoms (not symptoms related to Parkinson’s Disease)?</label><br/>
+    <input type="radio" id="0" name="SCAU26D" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SCAU26D" value="1">  YES</input>
+
+    <h3><b><br> Epworth Sleepiness Scale </b></h3>
+    How likely are you to doze off or fall asleep in the following situations, in contrast to just feeling tired? This refers to your usual way of life in recent times. Even if you haven't done some of these things recently try to work out how they would have affected you. Use the following scale and choose the most appropriate number for each sitation: 
+    <br><br>Rate the following activities on a scale of 0 to 3
+    <br>0 : would never dose
+    <br>1 : slight chance of dozing
+    <br>2 : moderate chance of dozing
+    <br>3 : high chance of dozing
+
+    <br/><br/>
+
+    <label for="ESS1">1. Sitting and reading </label><br>
+    <input type="radio" id="0" name="ESS1" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS1" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS1" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS1" value="3">  3</input>
+
+    <br><br><label for="ESS2">2. Watching TV </label></br>
+    <input type="radio" id="0" name="ESS2" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS2" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS2" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS2" value="3">  3</input>
+
+    <br><br><label for="ESS3">3. Sitting inactive in a public place (theater or meeting for example) </label><br>
+    <input type="radio" id="0" name="ESS3" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS3" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS3" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS3" value="3">  3</input>
+
+    <br><br><label for="ESS4">4. As a passenger in a car for an hour without a break </label><br>
+    <input type="radio" id="0" name="ESS4" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS4" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS4" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS4" value="3">  3</input>
+
+    <br><br><label for="ESS5">5. Lying down to rest in the afternoon when circumstamces permit </label><br>
+    <input type="radio" id="0" name="ESS5" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS5" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS5" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS5" value="3">  3</input>
+
+    <br><br><label for="ESS6">6. Sitting and talking to someone </label><br>
+    <input type="radio" id="0" name="ESS6" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS6" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS6" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS6" value="3">  3</input>
+
+    <br><br><label for="ESS7">7. Sitting quitely after lunch without alcohol </label><br>
+    <input type="radio" id="0" name="ESS7" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS7" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS7" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS7" value="3">  3</input>
+    
+    <br><br><label for="ESS8">8. In a car, while stopped for a few minutes in the traffic </label><br>
+    <input type="radio" id="0" name="ESS8" value="0">  0</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="ESS8" value="1">  1</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="2" name="ESS8" value="2">  2</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="3" name="ESS8" value="3">  3</input>
+
+    <h3><b><br> Geriatric Depression Scale </b></h3>
+    Based on how you felt over the past week
+    <br><br>Rate the following activities as YES or NO
+
+    <br/><br/>
+
+    <label for="GDSSATIS">1. Are you basically satisfied with your life? </label><br>
+    <input type="radio" id="1" name="GDSSATIS" value="1">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="0" name="GDSSATIS" value="0">  YES</input>
+
+    <br><br><label for="GDSDROPD">2. Have you dropped many of your activities and interests? </label><br>
+    <input type="radio" id="0" name="GDSDROPD" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSDROPD" value="1">  YES</input>
+
+    <br><br><label for="GDSEMPTY">3. Do you feel that your life is empty? </label><br>
+    <input type="radio" id="0" name="GDSEMPTY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSEMPTY" value="1">  YES</input>
+
+    <br><br><label for="GDSBORED">4. Do you often get bored? </label><br>
+    <input type="radio" id="0" name="GDSBORED" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSBORED" value="1">  YES</input>
+
+    <br><br><label for="GDSGSPIR">5. Are you in good spirits most of the time? </label><br>
+    <input type="radio" id="1" name="GDSGSPIR" value="1">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="0" name="GDSGSPIR" value="0">  YES</input>
+
+    <br><br><label for="GDSAFRAD">6. Are you afraid that something bad is going to happen to you? </label><br>
+    <input type="radio" id="0" name="GDSAFRAD" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSAFRAD" value="1">  YES</input>
+
+    <br><br><label for="GDSHAPPY">7. Do you feel happy most of the time? </label><br>
+    <input type="radio" id="1" name="GDSHAPPY" value="1">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="0" name="GDSHAPPY" value="0">  YES</input>
+
+    <br><br><label for="GDSHLPLS">8. Do you often feel helpless? </label><br>
+    <input type="radio" id="0" name="GDSHLPLS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSHLPLS" value="1">  YES</input>
+
+    <br><br><label for="GDSHOME">9. Do you prefer to stay at home, rather than going out and doing things? </label><br>
+    <input type="radio" id="0" name="GDSHOME" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSHOME" value="1">  YES</input>
+
+    <br><br><label for="GDSMEMRY">10. Do you feel that you have more problems with memory than most? </label><br>
+    <input type="radio" id="0" name="GDSMEMRY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSMEMRY" value="1">  YES</input>
+
+    <br><br><label for="GDSALIVE">11. Do you think it is wonderful to be alive now? </label><br>
+    <input type="radio" id="1" name="GDSALIVE" value="1">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="0" name="GDSALIVE" value="0">  YES</input>
+
+    <br><br><label for="GDSWRTLS">12. Do you feel worthless the way you are now? </label><br>
+    <input type="radio" id="0" name="GDSWRTLS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSWRTLS" value="1">  YES</input>
+
+    <br><br><label for="GDSENRGY">13. Do you feel full of energy? </label><br>
+    <input type="radio" id="1" name="GDSENRGY" value="1">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="0" name="GDSENRGY" value="0">  YES</input>
+
+    <br><br><label for="GDSHOPLS">14. Do you feel that your situation is hopeless? </label><br>
+    <input type="radio" id="0" name="GDSHOPLS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSHOPLS" value="1">  YES</input>
+
+    <br><br><label for="GDSBETER">15. Do you think that most people are better off than you are? </label><br>
+    <input type="radio" id="0" name="GDSBETER" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="GDSBETER" value="1">  YES</input>
+
+    <br><br><br><button type="submit" class="btn" style="background-color: #ffcccc">Next ></button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br/><br/><br/><br/>
+  </form>
+
+
+{% endblock %}
