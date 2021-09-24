@@ -18,4 +18,21 @@
   	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
   	<script src="static/js/app.js"></script>
     
+    <script>
+    function hideButton(){
+    document.getElementById("sub").style.display='none';
+    //or you can try
+    //document.getElementById("buttonId").style.visibility='hidden';
+    }
+    </script>
+
+
+    <br/>OR<br/><br/>
+    <form action="{{ url_for('predict_voice') }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="audio_data" id="audio_data" accept=".wav"/>
+    <br/><br/>
+    <button type="submit" class="btn" id="sub" style="background-color: #ffcccc" >Submit Uploaded File</button>
+    </form>
+
+   
 {% endblock %}

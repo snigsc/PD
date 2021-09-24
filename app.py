@@ -178,6 +178,7 @@ pickle_files['MT_G5'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
 for data,values in pickle_files.items():
     for model in values[:-1]:
         name = model[0][model[0].index('/')+1:model[0].index('_')]
+        
         weight = 6-(values[-1][name])
         model.append(weight) 
 
@@ -264,12 +265,14 @@ def predict_pq1():
 
         models = pickle_files['PQ_G1']
         
-        # if len(request.form)!=69: 
-        #     flash('Please answer all questions', category='error')
-        #     return redirect(url_for('render_pq1'))
+        if len(request.form)!=69: 
+            flash('Please answer all questions', category='error')
+            return redirect(url_for('render_pq1'))
             
         X = np.array([[x for x in request.form.values()]])
+        
         X = ordinal.fit_transform(X)
+        print(len(X))
 
         prob_lst = predict_single(X, models)
 
@@ -379,13 +382,13 @@ def predict_pq4():
         t.date=date
         db.session.commit()
 
-        # HC = [t.hc1, t.hc2, t.hc3, t.hc4]
-        # PD = [t.pd1, t.pd2, t.pd3, t.pd4]
-        # PRODROMA = [t.pro1, t.pro2, t.pro3, t.pro4]
+        HC = [t.hc1, t.hc2, t.hc3, t.hc4]
+        PD = [t.pd1, t.pd2, t.pd3, t.pd4]
+        PRODROMA = [t.pro1, t.pro2, t.pro3, t.pro4]
 
-        HC = [t.hc2, t.hc3, t.hc4]
-        PD = [t.pd2, t.pd3, t.pd4]
-        PRODROMA = [t.pro2, t.pro3, t.pro4]
+        # HC = [t.hc2, t.hc3, t.hc4]
+        # PD = [t.pd2, t.pd3, t.pd4]
+        # PRODROMA = [t.pro2, t.pro3, t.pro4]
     
         prediction, output_prob = predict_all(HC, PD, PRODROMA)
 
@@ -423,7 +426,7 @@ def render_pq4():
 ####################################################################################################
 
 
-voice_model = pickle.load(open('voice_dataset.pkl','rb'))
+voice_model = pickle.load(open('pickles/RFC_voice.pkl','rb'))
 
 @app.route('/voice',methods=['POST','GET'])
 @login_required
@@ -452,27 +455,34 @@ def voice_result():
 @login_required
 def predict_voice():
 
-    if request.method=='POST': 
+    if request.method=='POST':              
 
-        audio_bytes = request.files['audio_data'].read()
-        y, sr = sf.read(io.BytesIO(audio_bytes))
+        try:
+            audio_bytes = request.files['audio_data'].read()
+            y, sr = sf.read(io.BytesIO(audio_bytes))
 
-        # EXTRACT VOICE FEATURES
-        duration = librosa.get_duration(y=y,sr=sr)
-        rmse = librosa.feature.rms(y=y)
-        chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
-        spec_cent = librosa.feature.spectral_centroid(y=y, sr=sr)
-        spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
-        rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
-        zcr = librosa.feature.zero_crossing_rate(y)
-        mfcc = librosa.feature.mfcc(y=y, sr=sr)
-        to_append = f'{duration} {np.mean(chroma_stft)} {np.mean(rmse)} {np.mean(spec_cent)} {np.mean(spec_bw)} {np.mean(rolloff)} {np.mean(zcr)}' 
-        for e in mfcc:
-            to_append += f' {np.mean(e)}'
-        
-        # VOICE FEATURES LIST
-        voice_data = np.array(to_append.split(),dtype='float').reshape(1, -1)
-        
+            # EXTRACT VOICE FEATURES
+            duration = librosa.get_duration(y=y,sr=sr)
+            rmse = librosa.feature.rms(y=y)
+            chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
+            spec_cent = librosa.feature.spectral_centroid(y=y, sr=sr)
+            spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
+            rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
+            zcr = librosa.feature.zero_crossing_rate(y)
+            mfcc = librosa.feature.mfcc(y=y, sr=sr)
+            to_append = f'{duration} {np.mean(chroma_stft)} {np.mean(rmse)} {np.mean(spec_cent)} {np.mean(spec_bw)} {np.mean(rolloff)} {np.mean(zcr)}' 
+            for e in mfcc:
+                to_append += f' {np.mean(e)}'
+            
+            # VOICE FEATURES LIST
+            voice_data = np.array(to_append.split(),dtype='float').reshape(1, -1)
+        except:
+            flash('Incorrect input', category='error')
+            return redirect(url_for('predict_voice'))
+
+
+        print(duration,np.mean(chroma_stft),np.mean(rmse),np.mean(spec_cent),np.mean(spec_bw),np.mean(rolloff),np.mean(zcr))
+        print(voice_data)        
         # PREDICT VOICE
         try:
             prob = voice_model.predict_proba(voice_data)

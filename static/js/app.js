@@ -156,7 +156,7 @@ function createDownloadLink(blob) {
 		xhr.send(fd);
 	  })
 
-
+	 
 	// upload.addEventListener("click", function(event){
 	// 	  var xhr=new XMLHttpRequest();
 	// 	  xhr.onload=function(e) {
