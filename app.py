@@ -269,9 +269,9 @@ def predict_pq1():
             flash('Please answer all questions', category='error')
             return redirect(url_for('render_pq1'))
             
-        X = np.array([[x for x in request.form.values()]])
+        X = np.array([[int(x) for x in request.form.values()]])
         
-        X = ordinal.fit_transform(X)
+        # X = ordinal.fit_transform(X)
         print(len(X))
 
         prob_lst = predict_single(X, models)
