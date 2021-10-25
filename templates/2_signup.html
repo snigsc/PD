@@ -1,66 +1,103 @@
-{% extends "0_base.html" %} {% block title %}Sign Up{% endblock %} {% block
-    content %}
-    <form method="POST">
-    
-      <h2 align="center"><br><b>SIGN UP</b></h2>
-      <div class="form-group">
-        <label for="email">Email Address</label>
+{% extends "0_base.html" %} {% block title %}Sign Up{% endblock %} {% block signup %}
+
+<div class="container-login100"  >
+  <div class="wrap-login100 p-t-30 p-b-50" style="width:600px">
+    <span class="login100-form-title p-b-41">
+      Sign Up </span>    
+<form method="POST" class="login100-form validate-form p-b-33 p-t-5"> 
+        <div class="wrap-input100 validate-input"  style = "padding:10px 0">
+        <!-- <label for="email">Email Address</label> -->
         <input
           type="email"
-          class="form-control"
+          class="input100"
           id="email"
           name="email"
           placeholder="Enter email"
         />
+        <span class="focus-input100" ></span>
+        
+        <span class="focus-input100" ></span>
       </div>
-      <div class="form-group">
-        <label for="patName">Patient Name</label>
+      <div class="wrap-input100 validate-input" style = "padding:10px 0">
+        <!-- <label for="patName">Patient Name</label> -->
         <input
           type="text"
-          class="form-control"
+          class="input100"
           id="patName"
           name="patName"
           placeholder="Enter patient's name"
         />
+        <span class="focus-input100" ></span>
+        
+
       </div>
-      <div class="form-group">
-        <label for="patAge">Patient Age</label>
+      <div class="wrap-input100 validate-input" style = "padding:10px 0">
+        <!-- <label for="patAge">Patient Age</label> -->
         <input
           type="number"
-          class="form-control"
+          class="input100"
           id="patAge"
           name="patAge"
           placeholder="Enter patient's age"
         />
+        <span class="focus-input100" ></span>
+        
       </div>
-      <div class="form-group">
-        <label for="patGen">Patient Gender</label><br/>
-        <input type="radio" id="male" name="patGen" value="Male">  Male</input> &nbsp;&nbsp;
-        <input type="radio" id="female" name="patGen" value="Female">  Female</input>&nbsp;&nbsp;
-        <input type="radio" id="other" name="patGen" value="Other">  Other</input>
+      <div class="wrap-input100 validate-input" style="padding:10px 80px;">
+        <label for="patGen" style="font-family: Ubuntu-Regular;font-size: 20px;color: #555555;">Patient Gender</label><br/>
+        <input type="radio" id="male" name="patGen" value="Male"> <span style="font-family: Ubuntu-Regular;font-size: 20px;color: #555555;">&nbsp; Male</span></input>&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="female" name="patGen" value="Female"><span style="font-family: Ubuntu-Regular;font-size: 20px;color: #555555;"> &nbsp;Female</span> </input>&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="other" name="patGen" value="Other"><span style="font-family: Ubuntu-Regular;font-size: 20px;color: #555555;">&nbsp; Other</span></input>
       </div>
-      <div class="form-group">
-        <label for="password1">Password</label>
+      <div class="wrap-input100 validate-input" style = "padding:10px 0">
+        <!-- <label for="password1">Password</label> -->
         <input
+        
           type="password"
-          class="form-control"
+          
+          class="input100"
+          
           id="password1"
           name="password1"
           placeholder="Enter password"
         />
+        <span class="focus-input100" ></span>
+        
       </div>
-      <div class="form-group">
-        <label for="password2">Password (Confirm)</label>
+      <div class="wrap-input100 validate-input" style = "padding:10px 0">
+        <!-- <label for="password2">Password (Confirm)</label> -->
         <input
           type="password"
-          class="form-control"
+          class="input100"
           id="password2"
           name="password2"
           placeholder="Confirm password"
         />
+        <span class="focus-input100" ></span>
+        
       </div>
       <br />
-      <button type="submit" class="btn" style="background-color: #ffcccc">Sign Up</button>
+      <div class="container-login100-form-btn m-t-32">
+      <button type="submit" class="login100-form-btn btn" style="background-color: #ffcccc">Sign Up</button>
+      </div>
     </form>
-    {% endblock %}
+
+  </div>
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+{% endblock %}
     

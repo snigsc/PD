@@ -12,6 +12,7 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
 var recordButton = document.getElementById("recordButton");
+
 var stopButton = document.getElementById("stopButton");
 
 //add events to those 2 buttons
@@ -21,7 +22,7 @@ stopButton.addEventListener("click", stopRecording);
 function startRecording() {
 	console.log("recordButton clicked");
 
-    
+    recordButton.style.backgroundColor="indianred"
     var constraints = { audio: true, video:false }
 
  	/*
@@ -76,7 +77,7 @@ function startRecording() {
 
 function stopRecording() {
 	console.log("stopButton clicked");
-
+	recordButton.style.backgroundColor="#393b5b"
 	//disable the stop button, enable the record too allow for new recordings
 	stopButton.disabled = true;
 	recordButton.disabled = false;

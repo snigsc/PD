@@ -1,5 +1,5 @@
-{% extends "0_base.html" %} {% block title %}Home{% endblock %} {% block content%}
-<br/><br/><br/>
+{% extends "0_base.html" %} {% block title %}Home{% endblock %}
+<!-- <br/><br/><br/>
 
 <strong>Parkinson’s Disease</strong> is a disorder of the central nervous system that affects movement, often including tremors. Nerve cell damage in the brain causes dopamine levels to drop - a neurotransmitter, used by the nervous system to send messages between nerve cells, leading to the symptoms of Parkinson's. 
 
@@ -14,14 +14,180 @@ We conduct the following preliminary tests to analyze potential Parkinson's symp
 <ol>
 <li>A multiple-choice questionnaire that can be answered by the patient or a caretaker</li>
 <li>A voice test in which we analyze the way the patient reads a given paragraph of text</li>
-</ol>
-
+</ol> -->
+{% block home %}
 {% if user.is_authenticated %}
-<br><br><br><button onclick="location.href = '/pq1'" class="btn" style="background-color: #ffcccc; float: left">Take the test now</a>      
+<div class="statisticsDiv">
+                
+    <div class="statisticsDivContainer">
+        <div class="infoDiv" style="justify-content: center; gap:35px">
+            <p class = "screamer" style="font-size: 50px;">Parkinson’s Disease</p>
+            <p class="description">It is a disorder of the central nervous system that affects movement, often including tremors. Nerve cell damage in the brain causes dopamine levels to drop - a neurotransmitter, used by the nervous system to send messages between nerve cells, leading to the symptoms of Parkinson's. 
+            </p>      
+            <div style="line-height: 25px; display: flex; flex-direction: column; gap: 20px;">
+            <h3><strong><u>Our Mission</u></strong></h3>
+    
+            <p>
+            1. By detecting multiple attributes of actions associated with the human motor system, we aim detect to Parkinson’s Disease in its early stages — thereby leading to higher effectiveness of treatments.
+            </p>
+            <p>2. We conduct the following preliminary tests to analyze potential Parkinson's symptoms:
+            <ol>
+            <li>&emsp;&emsp;&emsp; -A multiple-choice questionnaire that can be answered by the patient or a caretaker</li>
+            <li>&emsp;&emsp;&emsp; -A voice test in which we analyze the way the patient reads a given paragraph of text</li>
+            </ol>
+            </p>
+            </div> 
+        </div>
+        <div class = "imageDiv">
+            <!-- <img src = "./images/holding-hands.jpeg" height="100px" width="100px"/> -->
 
-<button onclick="location.href = '/voice'" class="btn" style="background-color: #ffcccc; float: right;">Voice Analysis</button>
+            <img src = "{{ url_for('static', filename='oldAge.png') }}" alt = "jumboImg" />
+        </div>
+    </div>
+</div>
 {% endif %}
-<br/><br/><br/><br/>
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<div style="width:100%; display:flex;align-items: center;justify-content: center;flex-direction: column;margin-top: 41px; gap:20px;">
+    <div class="takeTest" onclick="location.href = '/pq1'">Take the test now</div>
+    <div class="takeTest" onclick="location.href = '/voice'">Voice Analysis</div>
+</div>
 
+<!-- <button onclick="location.href = '/pq1'" class="btn" style="background-color: #ffcccc; float: left">Take the test now</a>       -->
+<!-- <button onclick="location.href = '/voice'" class="btn" style="background-color: #ffcccc; float: right;">Voice Analysis</button> -->
+{% else %}
+{{ super() }}
+{% endif %}
 {% endblock %}
 
+{% block about_intro %}
+{% if user.is_authenticated %}
+{{ super() }}
+{% else %}
+<div class="statisticsDiv">
+                
+    <div class="statisticsDivContainer">
+        <div class="infoDiv">
+            <p class = "screamer"><i><u>STARKING STATISTICS</u></i></p>
+            <p class="description">- A staggering 10 million people are living with the disease worldwide</p>
+            <p class="description">- India accounts for roughly 10% of the global burden</p>
+            <p class="description">- The cause is unknown and there is no cure</p>            
+            <div class="statDiv">
+                <div class="totalCases">
+                    <h1 class = "statNumber">
+                        10m
+                    </h1>
+                    <p class = "statDesc">World</p>
+                </div>
+                <div class="indianCases">
+                    <h1 class = "statNumber">
+                        6.8l
+                    </h1>
+                    <p class = "statDesc">India</p>
+                </div>
+                <div class="medCost">
+                    <h1 class = "statNumber">
+                        ₹650k
+                    </h1>
+                    <p class = "statDesc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Avg Cost</p>
+                </div>
+            </div>
+        </div>
+        <div class = "imageDiv">
+            <!-- <img src = "./images/holding-hands.jpeg" height="100px" width="100px"/> -->
+
+            <img src = "{{ url_for('static', filename='oldAge.png') }}" alt = "jumboImg" />
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block about_stages %}
+{% if user.is_authenticated %}
+{{ super() }}
+{% else %}
+
+<div class="interim1">
+    <div class="interim1Left">
+        <div class="leftWhite"></div>
+    </div>
+    <div class="interim1Right">
+        <div class="rightWhite"></div>
+    </div>
+</div>
+
+<div class="stages">
+    <div class="stagesContainer">
+        <div class="stage1">
+            <div class="stageNumber">
+                <p>1</p>
+            </div>
+            <div class="stageDesc">
+                <p>Early</p>
+            </div>
+            <div class="stageContent">
+                <p>
+                    It is the mildest stage of Parkinson's Disease. At this stage there may be symptoms, but not severe enough to interfere with the overall lifestyle. Mild tremors and difficulty in movement may be observed exclusively on one side of the body. 
+                </p>
+            </div>
+        </div>
+
+        <div class="stage2">
+            <div class="stageNumber">
+                <p>2</p>
+            </div>
+            <div class="stageDesc">
+                <p>Moderate</p>
+            </div>
+            <div class="stageContent">
+                <p>
+                    This is considered a moderate form of Parkinson’s, and the symptoms are much more noticeable than those experienced in stage 1. Stiffness, tremors, and trembling may be more noticeable, and changes in facial expressions can occur. Progression from stage 1 to 2 can take anywhere between a few months to a couple of years.
+                </p>
+            </div>
+        </div>
+        <div class="stage3">
+            <div class="stageNumber">
+                <p>3</p>
+            </div>
+            <div class="stageDesc">
+                <p>Complicated</p>
+            </div>
+            <div class="stageContent">
+                <p>
+                    Stage 3 is the middle stage in Parkinson’s, and it marks a major turning point in the progression of the disease. Many of the symptoms are the same as those in stage 2. However, one is now more likely to experience loss of balance and decreased reflexes. This is why falls become more common in stage 3.
+                </p>
+            </div>
+        </div>
+        <div class="stage4">
+            <div class="stageNumber">
+                <p>4</p>
+            </div>
+            <div class="stageDesc">
+                <p>Complicated</p>
+            </div>
+            <div class="stageContent">
+                <p>
+                    Independence separates people with stage 3 Parkinson’s from those with stage 4. During stage 4, it’s possible to stand without assistance. Many people are unable to live alone at this stage of Parkinson’s because of significant decreases in movement and reaction times. Living alone puts the patient's life in danger.
+                </p>
+            </div>
+        </div>
+        <div class="stage5">
+            <div class="stageNumber">
+                <p>5</p>
+            </div>
+            <div class="stageDesc">
+                <p>Late</p>
+            </div>
+            <div class="stageContent">
+                <p>
+                    Stage 5 is the most advanced stage of Parkinson’s disease. Advanced stiffness in the legs can also cause freezing upon standing, making it impossible to stand or walk. Other disorders like Dementia and Alzheimers are more likely to creep in.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

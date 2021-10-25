@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -13,17 +13,44 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
-    />
+    /> -->
 
+  <!--===============================================================================================-->	
+    <link rel="icon" type="image/png" href = "{{ url_for('static', filename='images/icons/favicon.ico') }}"/>
+  <!--===============================================================================================-->
+     <!-- <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}"> -->
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='vendor/animate/animate.css') }}">
+  <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='vendor/css-hamburgers/hamburgers.min.css') }}">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='vendor/animsition/css/animsition.min.css') }}">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='vendor/select2/select2.min.css') }}">
+  <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='vendor/daterangepicker/daterangepicker.css') }}">
+  <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='css/util.css') }}"> 
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename='css/main.css') }}"> 
+  <!--===============================================================================================-->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@100;300;400&display=swap" rel="stylesheet">
+  <link rel = "stylesheet" href="{{ url_for('static', filename='global.css') }}">
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
     
 
-    <nav style="background-color: #ff5050; position: fixed; width: 100%;" class="navbar navbar-expand-lg navbar-light">
-      <!--<div class='nav-item'>
+    <!-- <nav style="background-color: #ff5050; position: fixed; width: 100%;" class="navbar navbar-expand-lg navbar-light">
+      <div class='nav-item'>
         <span style="color:whitesmoke;"><strong>pearlP</strong> - Parkinson's Disease Early Predictor</span>
-      </div>-->
+      </div>
       <button
         class="navbar-toggler"
         type="button"
@@ -48,7 +75,51 @@
       <div style="float: right; color:white;"><strong>Parkinson's Disease Early Predictor</strong></div>
     </nav>
     <br><br>
-        
+         -->
+  <div class="intro">
+  <div class="intro-bg">
+
+      </div>
+      <div class="header">
+          <div class="headerContainer">
+              <div class="headerLeft">
+                  <img src = "{{ url_for('static', filename='tulip.png') }}" alt = "logo"/>
+                  <img style = "height:50px;object-fit: contain;"src = "{{ url_for('static', filename='logo-text1.png') }}" alt = "logoText"/>
+                  <!-- <div><p>Parkinson's Disease Early Predictor</p></div> -->
+              </div>
+              <div class="headerRight">
+                {% if user.is_authenticated %}
+
+                <div class="about">
+                  <p onclick="location.href = '/';">Home</p>
+              </div>
+              <div class="login">
+                  <p onclick="location.href = '/my-tests';">My-Tests</p>
+              </div>
+              <div class="signUp" onclick="location.href = '/logout';">
+                  <p>Logout</p>
+              </div>
+                {% else %}
+                <div class="about">
+                  <p onclick="location.href = '/';">About us</p>
+              </div>
+              <div class="login">
+                  <p onclick="location.href = '/login';">Login</p>
+              </div>
+              <div class="signUp" onclick="location.href = '/sign-up';">
+                  <p>Sign up</p>
+              </div>
+                {% endif %}
+              </div>
+              
+          </div>
+      </div>
+      {% block about_intro %} {% endblock %}
+      {% block login %} {% endblock %}
+      {% block signup %} {% endblock %}
+      {% block home %} {% endblock %}
+</div>
+{% block about_stages %}{% endblock %}
 
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %} {% if category ==
