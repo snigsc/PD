@@ -1,99 +1,10 @@
 {% extends "0_base.html" %} {% block title %}PQ1{% endblock %} {% block content%}
 
-<h3><b><br> REM (Rapid Eye Movement) Sleep Disorder </b></h3>
-Description
-<br><br>Rate the following activities as YES or N0.
-
 <br/><br/>
 <!-- <div align="center"> -->
   <form action="{{ url_for('predict_pq1') }}" method="POST">
 
-    <label for="DRMVIVID">1. I sometimes have very vivid dreams.</label><br>
-    <input type="radio" id="0" name="DRMVIVID" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMVIVID" value="1"> YES</input>
-
-    <br><br><label for="DRMAGRAC">2. My dreams frequently have an aggressive or action-packed content.</label><br>
-    <input type="radio" id="0" name="DRMAGRAC" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMAGRAC" value="1">  YES</input>
-
-    <br><br><label for="DRMNOCTB">3. The dream contents mostly match my nocturnal behaviour.</label><br>
-    <input type="radio" id="0" name="DRMNOCTB" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMNOCTB" value="1">  YES</input>
-
-    <br><br><label for="SLPLMBMV">4. I know that my arms or legs move when I sleep.</label><br/>
-    <input type="radio" id="0" name="SLPLMBMV" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="SLPLMBMV" value="1">  YES</input>
-
-    <br><br><label for="SLPINJUR">5. I (almost) hurt my bed partner or myself in my sleep.</label><br/>
-    <input type="radio" id="0" name="SLPINJUR" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="SLPINJUR" value="1">  YES</input>
-
-    <h4><b><br>6. I have or had the following phenomena during my dreams: </b></h4>
-    <br><br><label for="DRMVERBL">6a. speaking, shouting, sweating, laughing loudly</label><br/>
-    <input type="radio" id="0" name="DRMVERBL" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMVERBL" value="1">  YES</input>
-
-    <br><br><label for="DRMFIGHT">6b. sudden limb movements, "fights"</label><br/>
-    <input type="radio" id="0" name="DRMFIGHT" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMFIGHT" value="1">  YES</input>
-
-    <br><br><label for="DRMUMV">6c. gesture, complex movements that are useless during sleep</label><br/>
-    <input type="radio" id="0" name="DRMUMV" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMUMV" value="1">  YES</input>
-
-    <br><br><label for="DRMOBJFL">6d. things that fell down around the bed</label><br/>
-    <input type="radio" id="0" name="DRMOBJFL" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMOBJFL" value="1">  YES</input>
-
-    <br><br><label for="MVAWAKEN">7. My movements awake me.</label><br/>
-    <input type="radio" id="0" name="MVAWAKEN" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="MVAWAKEN" value="1">  YES</input>
-
-    <br><br><label for="DRMREMEM">8. After awakening I mostly remember the content of my dreams well.</label><br/>
-    <input type="radio" id="0" name="DRMREMEM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DRMREMEM" value="1">  YES</input>
-
-    <br><br><label for="SLPDSTRB">9. My sleep is frequently disturbed.</label><br/>
-    <input type="radio" id="0" name="SLPDSTRB" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="SLPDSTRB" value="1">  YES</input>
-
-    <h4><b><br>10. I have/had a disease of the nervous system: </b></h4>
-    <br><br><label for="STROKE">10a. Stroke </label><br/>
-    <input type="radio" id="0" name="STROKE" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="STROKE" value="1">  YES</input>
-
-    <br><br><label for="HETRA">10b. Head Trauma </label><br/>
-    <input type="radio" id="0" name="HETRA" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="HETRA" value="1">  YES</input>
-
-    <br><br><label for="PARKISM">10c. Parkinsonism </label><br/>
-    <input type="radio" id="0" name="PARKISM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="PARKISM" value="1">  YES</input>
-
-    <br><br><label for="RLS">10d. RLS </label><br/>
-    <input type="radio" id="0" name="RLS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="RLS" value="1">  YES</input>
-
-    <br><br><label for="NARCLPSY">10e. Narcolepsy </label><br/>
-    <input type="radio" id="0" name="NARCLPSY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="NARCLPSY" value="1">  YES</input>
-
-    <br><br><label for="DEPRS">10f. Depression </label><br/>
-    <input type="radio" id="0" name="DEPRS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="DEPRS" value="1">  YES</input>
-
-    <br><br><label for="EPILEPSY">10g. Epilepsy </label><br/>
-    <input type="radio" id="0" name="EPILEPSY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="EPILEPSY" value="1">  YES</input>
     
-    <br><br><label for="BRNINFM">10h. Inflammatory disease of the brain </label><br/>
-    <input type="radio" id="0" name="BRNINFM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="BRNINFM" value="1">  YES</input>
-
-    <br><br><label for="CNSOTH">10i. Other </label><br/>
-    <input type="radio" id="0" name="CNSOTH" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
-    <input type="radio" id="1" name="CNSOTH" value="1">  YES</input>
-
 
     <h3><b><br> SCOPA AUT</b></h3>
     Based on your experiences over the past month, answer the following: 
@@ -390,6 +301,99 @@ Description
     <br><br><label for="GDSBETER">15. Do you think that most people are better off than you are? </label><br>
     <input type="radio" id="0" name="GDSBETER" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
     <input type="radio" id="1" name="GDSBETER" value="1">  YES</input>
+
+
+    <h3><b><br> REM (Rapid Eye Movement) Sleep Disorder </b></h3>
+
+    <br><br>Rate the following activities as YES or N0.
+
+
+    <label for="DRMVIVID">1. I sometimes have very vivid dreams.</label><br>
+    <input type="radio" id="0" name="DRMVIVID" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMVIVID" value="1"> YES</input>
+
+    <br><br><label for="DRMAGRAC">2. My dreams frequently have an aggressive or action-packed content.</label><br>
+    <input type="radio" id="0" name="DRMAGRAC" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMAGRAC" value="1">  YES</input>
+
+    <br><br><label for="DRMNOCTB">3. The dream contents mostly match my nocturnal behaviour.</label><br>
+    <input type="radio" id="0" name="DRMNOCTB" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMNOCTB" value="1">  YES</input>
+
+    <br><br><label for="SLPLMBMV">4. I know that my arms or legs move when I sleep.</label><br/>
+    <input type="radio" id="0" name="SLPLMBMV" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SLPLMBMV" value="1">  YES</input>
+
+    <br><br><label for="SLPINJUR">5. I (almost) hurt my bed partner or myself in my sleep.</label><br/>
+    <input type="radio" id="0" name="SLPINJUR" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SLPINJUR" value="1">  YES</input>
+
+    <h4><b><br>6. I have or had the following phenomena during my dreams: </b></h4>
+    <br><br><label for="DRMVERBL">6a. speaking, shouting, sweating, laughing loudly</label><br/>
+    <input type="radio" id="0" name="DRMVERBL" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMVERBL" value="1">  YES</input>
+
+    <br><br><label for="DRMFIGHT">6b. sudden limb movements, "fights"</label><br/>
+    <input type="radio" id="0" name="DRMFIGHT" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMFIGHT" value="1">  YES</input>
+
+    <br><br><label for="DRMUMV">6c. gesture, complex movements that are useless during sleep</label><br/>
+    <input type="radio" id="0" name="DRMUMV" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMUMV" value="1">  YES</input>
+
+    <br><br><label for="DRMOBJFL">6d. things that fell down around the bed</label><br/>
+    <input type="radio" id="0" name="DRMOBJFL" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMOBJFL" value="1">  YES</input>
+
+    <br><br><label for="MVAWAKEN">7. My movements awake me.</label><br/>
+    <input type="radio" id="0" name="MVAWAKEN" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="MVAWAKEN" value="1">  YES</input>
+
+    <br><br><label for="DRMREMEM">8. After awakening I mostly remember the content of my dreams well.</label><br/>
+    <input type="radio" id="0" name="DRMREMEM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DRMREMEM" value="1">  YES</input>
+
+    <br><br><label for="SLPDSTRB">9. My sleep is frequently disturbed.</label><br/>
+    <input type="radio" id="0" name="SLPDSTRB" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="SLPDSTRB" value="1">  YES</input>
+
+    <h4><b><br>10. I have/had a disease of the nervous system: </b></h4>
+    <br><br><label for="STROKE">10a. Stroke </label><br/>
+    <input type="radio" id="0" name="STROKE" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="STROKE" value="1">  YES</input>
+
+    <br><br><label for="HETRA">10b. Head Trauma </label><br/>
+    <input type="radio" id="0" name="HETRA" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="HETRA" value="1">  YES</input>
+
+    <br><br><label for="PARKISM">10c. Parkinsonism </label><br/>
+    <input type="radio" id="0" name="PARKISM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="PARKISM" value="1">  YES</input>
+
+    <br><br><label for="RLS">10d. RLS </label><br/>
+    <input type="radio" id="0" name="RLS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="RLS" value="1">  YES</input>
+
+    <br><br><label for="NARCLPSY">10e. Narcolepsy </label><br/>
+    <input type="radio" id="0" name="NARCLPSY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="NARCLPSY" value="1">  YES</input>
+
+    <br><br><label for="DEPRS">10f. Depression </label><br/>
+    <input type="radio" id="0" name="DEPRS" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="DEPRS" value="1">  YES</input>
+
+    <br><br><label for="EPILEPSY">10g. Epilepsy </label><br/>
+    <input type="radio" id="0" name="EPILEPSY" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="EPILEPSY" value="1">  YES</input>
+    
+    <br><br><label for="BRNINFM">10h. Inflammatory disease of the brain </label><br/>
+    <input type="radio" id="0" name="BRNINFM" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="BRNINFM" value="1">  YES</input>
+
+    <br><br><label for="CNSOTH">10i. Other </label><br/>
+    <input type="radio" id="0" name="CNSOTH" value="0">  NO</input>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="1" name="CNSOTH" value="1">  YES</input>
+
 
     <br><br><br><button type="submit" class="btn" style="background-color: #ffcccc">Next ></button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

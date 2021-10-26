@@ -7,9 +7,9 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import speech_recognition as sr
-# import librosa
+import librosa
 import io
-# import soundfile as sf
+import soundfile as sf
 import pandas as pd
 from datetime import datetime
 from sklearn.preprocessing import OrdinalEncoder
@@ -149,39 +149,46 @@ def sign_up():
 ###########################################################################################
 
 pickle_files = {}
+pickle_voice = []
 directory = 'pickles'
+
 
 for root, dirs, files in os.walk(directory):
     for filename in files:
-        if filename[-4:]=='.pkl':   
-            data = filename[-9:-4]
-            if data not in pickle_files.keys():
-                pickle_files[data] = []    
-            # pickle_files[data].append(os.path.join(root,filename))
-            pickle_files[data].append([root+"/"+filename])
+        if filename[-4:]=='.pkl': 
+            if filename[-5]=='V':
+                pickle_voice.append(root+"/"+filename)
+            else:
+                data = filename[-9:-4]
+                if data not in pickle_files.keys():
+                    pickle_files[data] = []    
+                # pickle_files[data].append(os.path.join(root,filename))
+                pickle_files[data].append([root+"/"+filename])
 
 
 ranks = {}
 # ranks['PQ_G1']
-pickle_files['PQ_G1'].append({'ETC':3, 'LGBMC':2, 'XGBC':1, 'RFC':5, 'LR':4 })
-pickle_files['PQ_G2'].append({'ETC':4, 'LGBMC':2, 'XGBC':1, 'RFC':5, 'LR':3 })
-pickle_files['PQ_G3'].append({'ETC':3, 'LGBMC':1, 'XGBC':4, 'RFC':2, 'LR':5 })
-pickle_files['PQ_G4'].append({'ETC':4, 'LGBMC':3, 'XGBC':1, 'RFC':5, 'LR':2 })
-pickle_files['MT_G1'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
-pickle_files['MT_G2'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
-pickle_files['MT_G3'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
-pickle_files['MT_G4'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
-pickle_files['MT_G5'].append({'ETC':1, 'LGBMC':2, 'XGBC':3, 'RFC':4, 'LR':5 })
+
+pickle_files['PQ_G1'].append({'LGBM':1, 'RF':2, 'BC':3, 'DT':4 })
+# pickle_files['PQ_G1'].append({'XGB':1, 'LGBM':1, 'RF':2, 'BC':3, 'DT':4 })
+pickle_files['PQ_G2'].append({'ETC':1, 'LGBM':2, 'XGB':3, 'RF':4, 'LR':5 })
+pickle_files['PQ_G3'].append({'ETC':1, 'RF':1, 'LGBM':2, 'QDA':3, 'GC':3 })
+pickle_files['PQ_G4'].append({'GNB':1, 'DT':1, 'ADA':1, 'RF':1, 'QDA':1 })
+
 # ranks['PQ_G3']
 # ranks['PQ_G4']
+
+print(pickle_files)
+
 
 for data,values in pickle_files.items():
     for model in values[:-1]:
         name = model[0][model[0].index('/')+1:model[0].index('_')]
-        
+        print(model,name)
         weight = 6-(values[-1][name])
         model.append(weight) 
 
+print(pickle_files)
 
 @app.route('/')
 # @login_required
@@ -202,7 +209,14 @@ def my_tests():
 
 # FOR MULTIPLE GROUPS
 def predict_all(hc, pd, pro):
-    prob_lst = [sum(hc)/len(hc), sum(pd)/len(pd), sum(pro)/len(pro)]
+    print("HC",hc)
+    
+    # prob_lst = [sum(hc)/len(hc), sum(pd)/len(pd), sum(pro)/len(pro)]
+    prob_hc = sum(i[0]*i[1] for i in hc)/sum(i[1] for i in hc)
+    prob_pd = sum(i[0]*i[1] for i in pd)/sum(i[1] for i in pd)
+    prob_pro = sum(i[0]*i[1] for i in pro)/sum(i[1] for i in pro)
+
+    prob_lst = [prob_hc, prob_pd, prob_pro]
 
     output_prob = max(prob_lst)
     prediction = prob_lst.index(output_prob)
@@ -246,7 +260,7 @@ def predict_single(X,models):
             i[1] = 0
 
 
-    print(HC_prob,PD_prob,Prodroma_prob)
+    # print(HC_prob,PD_prob,Prodroma_prob)
 
     HC_result = sum([HC_prob[x][0]*HC_prob[x][1] for x in range(3)])/sum([HC_prob[x][1] for x in range(3)])
     PD_result = sum([PD_prob[x][0]*PD_prob[x][1] for x in range(3)])/sum([PD_prob[x][1] for x in range(3)])
@@ -271,7 +285,6 @@ def predict_pq1():
             
         X = np.array([[int(x) for x in request.form.values()]])
         
-        # X = ordinal.fit_transform(X)
         print(len(X))
 
         prob_lst = predict_single(X, models)
@@ -382,9 +395,9 @@ def predict_pq4():
         t.date=date
         db.session.commit()
 
-        HC = [t.hc1, t.hc2, t.hc3, t.hc4]
-        PD = [t.pd1, t.pd2, t.pd3, t.pd4]
-        PRODROMA = [t.pro1, t.pro2, t.pro3, t.pro4]
+        HC = [[t.hc1,1], [t.hc2,4], [t.hc3,2], [t.hc4,3]]
+        PD = [[t.pd1,1], [t.pd2,4], [t.pd3,2], [t.pd4,3]]
+        PRODROMA = [[t.pro1,1], [t.pro2,4], [t.pro3,2], [t.pro4,3]]
 
         # HC = [t.hc2, t.hc3, t.hc4]
         # PD = [t.pd2, t.pd3, t.pd4]
@@ -426,8 +439,6 @@ def render_pq4():
 ####################################################################################################
 
 
-voice_model = pickle.load(open('pickles/RFC_voice.pkl','rb'))
-
 @app.route('/voice',methods=['POST','GET'])
 @login_required
 def render_voice():
@@ -455,7 +466,8 @@ def voice_result():
 @login_required
 def predict_voice():
 
-    if request.method=='POST':              
+    if request.method=='POST':     
+        print("voice posted\n\n")         
 
         try:
             audio_bytes = request.files['audio_data'].read()
@@ -471,8 +483,14 @@ def predict_voice():
             zcr = librosa.feature.zero_crossing_rate(y)
             mfcc = librosa.feature.mfcc(y=y, sr=sr)
             to_append = f'{duration} {np.mean(chroma_stft)} {np.mean(rmse)} {np.mean(spec_cent)} {np.mean(spec_bw)} {np.mean(rolloff)} {np.mean(zcr)}' 
+            # to_append = f'{duration} {np.mean(rmse)} {np.mean(spec_cent)} {np.mean(rolloff)} {np.mean(zcr)}' 
+            i = 0
             for e in mfcc:
+                i+=1
+                # if i in [6,14,16]:
+                    # to_append += f' {np.mean(e)}'
                 to_append += f' {np.mean(e)}'
+            
             
             # VOICE FEATURES LIST
             voice_data = np.array(to_append.split(),dtype='float').reshape(1, -1)
@@ -481,17 +499,38 @@ def predict_voice():
             return redirect(url_for('predict_voice'))
 
 
-        print(duration,np.mean(chroma_stft),np.mean(rmse),np.mean(spec_cent),np.mean(spec_bw),np.mean(rolloff),np.mean(zcr))
+        # print(duration,np.mean(chroma_stft),np.mean(rmse),np.mean(spec_cent),np.mean(spec_bw),np.mean(rolloff),np.mean(zcr))
         print(voice_data)        
         # PREDICT VOICE
         try:
-            prob = voice_model.predict_proba(voice_data)
-            output_prob = round(max(prob[0])*100,2)
-            idx = prob[0].tolist().index(max(prob[0]))
-            pred = voice_model.predict(voice_data)[0]
-            
-            hc = round(prob[0][0],4)*100
-            pd = round(prob[0][1],4)*100
+            v_hc = []
+            v_pd = []
+
+            for model_name in pickle_voice:
+                print(model_name)
+                model = pickle.load(open(model_name,'rb'))
+                prob = model.predict_proba(voice_data)
+                # output_prob = round(max(prob[0])*100,2)
+                # idx = prob[0].tolist().index(max(prob[0]))
+                # pred = model.predict(voice_data)[0]
+                
+                v_hc.append(round(prob[0][0],4)*100)
+                v_pd.append(round(prob[0][1],4)*100)
+
+                print(v_hc,v_pd)
+
+            hc = sum(v_hc)/len(v_hc)
+            pd = sum(v_pd)/len(v_pd)
+            print(hc,pd)
+
+            if hc>pd:
+                idx = 0
+                output_prob = hc
+            else:
+                idx = 1
+                output_prob = pd
+
+            print(hc,pd,idx,output_prob)
 
             session['voice_prediction'] = [idx,output_prob]
 
