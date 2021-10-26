@@ -167,16 +167,12 @@ for root, dirs, files in os.walk(directory):
 
 
 ranks = {}
-# ranks['PQ_G1']
 
 pickle_files['PQ_G1'].append({'LGBM':1, 'RF':2, 'BC':3, 'DT':4 })
-# pickle_files['PQ_G1'].append({'XGB':1, 'LGBM':1, 'RF':2, 'BC':3, 'DT':4 })
-pickle_files['PQ_G2'].append({'ETC':1, 'LGBM':2, 'XGB':3, 'RF':4, 'LR':5 })
+# pickle_files['PQ_G1'].append({'XGB':1, 'LGBM':2, 'RF':3, 'BC':4, 'DT':5 })
+pickle_files['PQ_G2'].append({'LGBM':1, 'RF':1, 'LR':2, 'BC':2, 'ADA':2 })
 pickle_files['PQ_G3'].append({'ETC':1, 'RF':1, 'LGBM':2, 'QDA':3, 'GC':3 })
 pickle_files['PQ_G4'].append({'GNB':1, 'DT':1, 'ADA':1, 'RF':1, 'QDA':1 })
-
-# ranks['PQ_G3']
-# ranks['PQ_G4']
 
 print(pickle_files)
 
@@ -279,7 +275,7 @@ def predict_pq1():
 
         models = pickle_files['PQ_G1']
         
-        if len(request.form)!=69: 
+        if len(request.form)!=54: 
             flash('Please answer all questions', category='error')
             return redirect(url_for('render_pq1'))
             
@@ -310,7 +306,7 @@ def predict_pq2():
 
         models = pickle_files['PQ_G2']
         
-        if len(request.form)!=20: 
+        if len(request.form)!=35: 
             flash('Please answer all questions', category='error')
             return redirect(url_for('render_pq2'))
             
@@ -395,9 +391,9 @@ def predict_pq4():
         t.date=date
         db.session.commit()
 
-        HC = [[t.hc1,1], [t.hc2,4], [t.hc3,2], [t.hc4,3]]
-        PD = [[t.pd1,1], [t.pd2,4], [t.pd3,2], [t.pd4,3]]
-        PRODROMA = [[t.pro1,1], [t.pro2,4], [t.pro3,2], [t.pro4,3]]
+        HC = [[t.hc1,1], [t.hc2,2], [t.hc3,3], [t.hc4,4]]
+        PD = [[t.pd1,1], [t.pd2,2], [t.pd3,3], [t.pd4,4]]
+        PRODROMA = [[t.pro1,1], [t.pro2,2], [t.pro3,3], [t.pro4,4]]
 
         # HC = [t.hc2, t.hc3, t.hc4]
         # PD = [t.pd2, t.pd3, t.pd4]
