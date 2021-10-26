@@ -39,9 +39,10 @@
     <form action="{{ url_for('predict_voice') }}" method="POST" enctype="multipart/form-data">
     <input type="file" style="font-size: 16px;margin-top: 20px; padding: 10px; margin-left: 100px;" name="audio_data" id="audio_data" accept=".wav"/>
     <div style="display:flex;justify-content: center; margin-top: 20px;">
-      <div type="submit" id="sub" class="recordVoice" id="recordButton">Submit File</div>
+      <!--<div type="submit" id="sub" class="recordVoice" id="recordButton">Submit File</div>-->
+      <button type="submit" id="sub" class="recordVoice">Submit File</button>
     </div>
-    <!-- <button type="submit" class="btn" id="sub" style="background-color: #ffcccc" >Submit Uploaded File</button> -->
+    
     </form>
   </div>
    
