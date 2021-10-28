@@ -1,5 +1,22 @@
 {% extends "0_base.html" %} {% block title %}PQ4{% endblock %} {% block content%}
 
+
+<script>
+    if (window.XMLHttpRequest) {
+		xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET", "test_case_1.xml", false);
+    xmlhttp.send();
+    xmlDoc = xmlhttp.responseXML;
+
+    var x = xmlDoc.getElementsByTagName("PQ4");
+    document.write(x[i].getElementsByTagName("v"));
+
+</script>
+
+
 <h3><b><br> Modified England Schwab Test </b></h3>
 
 The Schwab and England ADL (Activities of Daily Living) scale is a method of assessing the capabilities of people suffering from impaired mobility. 
